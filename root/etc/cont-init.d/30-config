@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bash
+
+# link database file
+[[ ! -e /config/PlexRequests.sqlite ]] && \
+	> /config/PlexRequests.sqlite
+[[ -e /opt/ombi/PlexRequests.sqlite && ! -L /opt/ombi/PlexRequests.sqlite ]] && \
+	rm /opt/ombi/PlexRequests.sqlite
+[[ ! -L /opt/ombi/PlexRequests.sqlite ]] && \
+	ln -s /config/PlexRequests.sqlite /opt/ombi/PlexRequests.sqlite
+
+# link log folder
+[[ ! -d /config/logs ]] && \
+	mkdir -p /config/logs
+[[ -d /opt/ombi/logs && ! -L /opt/ombi/logs ]] && \
+	rm -rf /opt/ombi/logs
+[[ ! -L /opt/ombi/logs ]] && \
+	ln -s /config/logs /opt/ombi/logs
+
+# permissions
+chown -R abc:abc \
+	/config \
+	/opt
