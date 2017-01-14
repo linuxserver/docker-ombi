@@ -1,9 +1,0 @@
-	--no-install-recommends \
-	--no-install-suggests \
-	libmono-cil-dev \
-	mono-mcs \
-	bzip2 \
-	libcurl4-openssl-dev \
-	python \
-	unzip \
-	wget && \
