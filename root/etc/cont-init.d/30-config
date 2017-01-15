@@ -16,6 +16,14 @@
 [[ ! -L /opt/ombi/logs ]] && \
 	ln -s /config/logs /opt/ombi/logs
 
+# link backup folder
+[[ ! -d /config/BackupSystem ]] && \
+	mkdir -p /config/BackupSystem
+[[ -d /opt/ombi/BackupSystem && ! -L /opt/ombi/BackupSystem ]] && \
+	rm -rf /opt/ombi/BackupSystem
+[[ ! -L /opt/BackupSystem ]] && \
+	ln -s /config/BackupSystem opt/ombi/BackupSystem
+
 # permissions
 chown -R abc:abc \
 	/config \
