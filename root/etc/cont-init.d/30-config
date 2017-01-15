@@ -1,12 +1,17 @@
 #!/usr/bin/with-contenv bash
 
 # link database file
-[[ ! -e /config/Ombi.sqlite ]] && \
-	> /config/Ombi.sqlite
-[[ -e /opt/ombi/Ombi.sqlite && ! -L /opt/ombi/Ombi.sqlite ]] && \
-	rm /opt/ombi/Ombi.sqlite
-[[ ! -L /opt/ombi/Ombi.sqlite ]] && \
-	ln -s /config/Ombi.sqlite /opt/ombi/Ombi.sqlite
+if [[ -e /config/PlexRequests.sqlite ]]; then
+SQL_DBASE="PlexRequests"
+else
+SQL_DBASE="Ombi"
+fi
+[[ ! -e /config/"${SQL_DBASE}".sqlite ]] && \
+	> /config/"${SQL_DBASE}".sqlite
+[[ -e /opt/ombi/"${SQL_DBASE}".sqlite && ! -L /opt/ombi/"${SQL_DBASE}".sqlite ]] && \
+	rm /opt/ombi/"${SQL_DBASE}".sqlite
+[[ ! -L /opt/ombi/"${SQL_DBASE}".sqlite ]] && \
+	ln -s /config/"${SQL_DBASE}".sqlite /opt/ombi/Ombi.sqlite
 
 # link log folder
 [[ ! -d /config/logs ]] && \
