@@ -16,9 +16,10 @@ RUN \
 	--no-install-recommends \
 	--no-install-suggests \
 	bzip2 \
+	ca-certificates-mono \
 	libcurl4-openssl-dev \
-	libmono-cil-dev \
-	mono-mcs \
+	mono-devel \
+	mono-vbnc \
 	python \
 	unzip \
 	wget && \
