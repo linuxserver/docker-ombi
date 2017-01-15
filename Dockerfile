@@ -30,12 +30,9 @@ RUN \
 	| awk '/tag_name/{print $4;exit}' FS='[""]') && \
  curl -o \
  /tmp/ombi-src.zip -L \
-	"https://github.com/tidusjar/Ombi/releases/download/${ombi_tag}/PlexRequests.zip" && \
+	"https://github.com/tidusjar/Ombi/releases/download/${ombi_tag}/Ombi.zip" && \
  unzip -q /tmp/ombi-src.zip -d /tmp && \
  mv /tmp/Release /opt/ombi && \
-
-# test for plexrequests.exe and exit out if not found
- if [ ! -e "/opt/ombi/PlexRequests.exe" ]; then exit 1; fi && \
 
 # clean up
  rm -rf \

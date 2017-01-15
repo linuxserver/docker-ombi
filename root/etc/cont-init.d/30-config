@@ -1,12 +1,12 @@
 #!/usr/bin/with-contenv bash
 
 # link database file
-[[ ! -e /config/PlexRequests.sqlite ]] && \
-	> /config/PlexRequests.sqlite
-[[ -e /opt/ombi/PlexRequests.sqlite && ! -L /opt/ombi/PlexRequests.sqlite ]] && \
-	rm /opt/ombi/PlexRequests.sqlite
-[[ ! -L /opt/ombi/PlexRequests.sqlite ]] && \
-	ln -s /config/PlexRequests.sqlite /opt/ombi/PlexRequests.sqlite
+[[ ! -e /config/Ombi.sqlite ]] && \
+	> /config/Ombi.sqlite
+[[ -e /opt/ombi/Ombi.sqlite && ! -L /opt/ombi/Ombi.sqlite ]] && \
+	rm /opt/ombi/Ombi.sqlite
+[[ ! -L /opt/ombi/Ombi.sqlite ]] && \
+	ln -s /config/Ombi.sqlite /opt/ombi/Ombi.sqlite
 
 # link log folder
 [[ ! -d /config/logs ]] && \

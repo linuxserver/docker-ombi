@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv bash
 
 exec \
-	s6-setuidgid abc mono /opt/ombi/PlexRequests.exe
+	s6-setuidgid abc mono /opt/ombi/Ombi.exe
