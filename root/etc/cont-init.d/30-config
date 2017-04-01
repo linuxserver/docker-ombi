@@ -2,7 +2,7 @@
 
 # link database file
 [[ ! -e /config/Ombi.sqlite ]] && \
-	> /config/Ombi.sqlite
+	: > /config/Ombi.sqlite
 [[ -e /opt/ombi/Ombi.sqlite && ! -L /opt/ombi/Ombi.sqlite ]] && \
 	rm /opt/ombi/Ombi.sqlite
 [[ ! -L /opt/ombi/Ombi.sqlite ]] && \
