@@ -60,11 +60,9 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 
 It is based on ubuntu xenial with s6 overlay, for shell access whilst the container is running do `docker exec -it ombi /bin/bash`.
 
-### TIME ZONE INFO
+## Localtime
 
-```
 It is important that you either set `-v /etc/localtime:/etc/localtime:ro` or the TZ variable, mono will throw exceptions without one of them set.
-```
  
 ### User / Group Identifiers
 
