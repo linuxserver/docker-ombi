@@ -39,6 +39,7 @@ docker create \
     -v /etc/localtime:/etc/localtime:ro \
     -v <path to data>:/config \
     -e PGID=<gid> -e PUID=<uid>  \
+    -e TZ=<timezone> \
     -p 3579:3579 \
     linuxserver/ombi
 ```
