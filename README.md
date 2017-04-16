@@ -62,7 +62,9 @@ It is based on ubuntu xenial with s6 overlay, for shell access whilst the contai
 
 ### TIME ZONE INFO
 
+```
 It is important that you either set `-v /etc/localtime:/etc/localtime:ro` or the TZ variable, mono will throw exceptions without one of them set.
+```
  
 ### User / Group Identifiers
 
