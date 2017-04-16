@@ -89,4 +89,5 @@ Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then 
 
 ## Versions
 
++ **16.04.17:** Switch to using inhouse mono baseimage.
 + **17.02.17:** Initial Release.
