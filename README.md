@@ -52,7 +52,7 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 
 
 * `-p 3579` - the port(s)
-* `-v /etc/localtime` for timesync - see for important information
+* `-v /etc/localtime` for timesync - see [Localtime][#localtime] for important information
 * `-e TZ` for timezone information, Europe/London - see for important information
 * `-v /config` - where ombi should store its config files
 * `-e PGID` for GroupID - see below for explanation
