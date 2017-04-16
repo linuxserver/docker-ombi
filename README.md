@@ -52,13 +52,18 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 
 
 * `-p 3579` - the port(s)
-* `-v /etc/localtime` for timesync - *optional*
+* `-v /etc/localtime` for timesync - see [Localtime](#localtime) for important information
+* `-e TZ` for timezone information, Europe/London - see [Localtime](#localtime) for important information
 * `-v /config` - where ombi should store its config files
 * `-e PGID` for GroupID - see below for explanation
 * `-e PUID` for UserID - see below for explanation
 
 It is based on ubuntu xenial with s6 overlay, for shell access whilst the container is running do `docker exec -it ombi /bin/bash`.
 
+## Localtime
+
+It is important that you either set `-v /etc/localtime:/etc/localtime:ro` or the TZ variable, mono will throw exceptions without one of them set.
+ 
 ### User / Group Identifiers
 
 Sometimes when using data volumes (`-v` flags) permissions issues can arise between the host OS and the container. We avoid this issue by allowing you to specify the user `PUID` and group `PGID`. Ensure the data volume directory on the host is owned by the same user you specify and it will "just work" ™.
