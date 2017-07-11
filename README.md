@@ -13,7 +13,7 @@ The [LinuxServer.io][linuxserverurl] team brings you another container release f
 * [Podcast][podcasturl] covers everything to do with getting the most from your Linux Server plus a focus on all things Docker and containerisation!
 
 # linuxserver/ombi
-[![](https://images.microbadger.com/badges/version/linuxserver/ombi.svg)](https://microbadger.com/images/linuxserver/ombi "Get your own version badge on microbadger.com")[![](https://images.microbadger.com/badges/image/linuxserver/ombi.svg)](http://microbadger.com/images/linuxserver/ombi "Get your own image badge on microbadger.com")[![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/ombi.svg)][hub][![Docker Stars](https://img.shields.io/docker/stars/linuxserver/ombi.svg)][hub][![Build Status](http://jenkins.linuxserver.io:8080/buildStatus/icon?job=Dockers/LinuxServer.io/linuxserver-ombi)](http://jenkins.linuxserver.io:8080/job/Dockers/job/LinuxServer.io/job/linuxserver-ombi/)
+[![](https://images.microbadger.com/badges/version/linuxserver/ombi.svg)](https://microbadger.com/images/linuxserver/ombi "Get your own version badge on microbadger.com")[![](https://images.microbadger.com/badges/image/linuxserver/ombi.svg)](https://microbadger.com/images/linuxserver/ombi "Get your own image badge on microbadger.com")[![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/ombi.svg)][hub][![Docker Stars](https://img.shields.io/docker/stars/linuxserver/ombi.svg)][hub][![Build Status](https://ci.linuxserver.io/buildStatus/icon?job=Docker-Builders/x86-64/x86-64-ombi)](https://ci.linuxserver.io/job/Docker-Builders/job/x86-64/job/x86-64-ombi/)
 
 [hub]: https://hub.docker.com/r/linuxserver/ombi/
 
