@@ -1,0 +1,77 @@
+FROM lsiobase/xenial
+
+# environment settings
+ARG DEBIAN_FRONTEND="noninteractive"
+ARG OMBI_CHECKOUT="f597c5253346fbdd9af8c121ad83c1263c8795e4"
+
+# install packages
+RUN \
+ apt-get update && \
+ apt-get install -y \
+	apt-transport-https \
+	lsb-release && \
+
+ echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > \
+	/etc/apt/sources.list.d/dotnetdev.list && \
+ apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893 && \
+ curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
+ apt-get update && \
+ apt-get install -y \
+	--no-install-recommends \
+	build-essential \
+	bzr \
+	dirmngr \
+	git \
+	gnupg2 \
+	libc6 \
+	libcurl3 \
+	libgcc1 \
+	libgssapi-krb5-2 \
+	libicu55 \
+	liblttng-ust0 \
+	libssl1.0.0 \
+	libstdc++6 \
+	libunwind8 \
+	libuuid1 \
+	mercurial \
+	nodejs \
+	openssh-client \
+	p7zip-full \
+	procps \
+	subversion \
+	wget \
+	zlib1g && \
+
+ apt-get install -y \
+	dotnet-dev-1.0.4 && \
+
+ npm install -g gulp && \
+
+# cleanup
+ rm -rf \
+	/tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
+
+# build ombi
+RUN \
+ git clone --branch=DotNetCore https://github.com/tidusjar/Ombi.git /projects/ombi && \
+ cd /projects/ombi && \
+ git checkout -qf ${OMBI_CHECKOUT} && \
+ cd /projects/ombi/src/Ombi && \
+ dotnet restore && \
+ npm install && \
+ gulp publish && \
+ dotnet build && \
+ dotnet publish -c Release -r ubuntu.16.10-x64 && \
+ dotnet publish "../Ombi.Updater" -c Release -r ubuntu.16.10-x64 && \
+ 7z a Ombi_ubuntu.zip /projects/ombi/src/Ombi/bin/Release/netcoreapp1.1/ubuntu.16.10-x64/publish
+
+RUN \
+ mkdir -p \
+	/package && \
+ cp /projects/ombi/src/Ombi/Ombi_ubuntu.zip /package/ && \
+ chmod -R 777 /package
+
+# Copy zip file out to mounted directory
+CMD ["cp", "-avr", "/package", "/mnt/"]
