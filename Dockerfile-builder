@@ -63,9 +63,11 @@ RUN \
  npm install && \
  gulp publish && \
  dotnet build && \
- dotnet publish -c Release -r ubuntu.16.10-x64 && \
- dotnet publish "../Ombi.Updater" -c Release -r ubuntu.16.10-x64 && \
- 7z a Ombi_ubuntu.zip /projects/ombi/src/Ombi/bin/Release/netcoreapp1.1/ubuntu.16.10-x64/publish
+ dotnet publish -c Release && \
+ dotnet publish "../Ombi.Updater" -c Release && \
+ cp /projects/ombi/src/Ombi/bin/Release/netcoreapp1.1/Swagger.xml /projects/ombi/src/Ombi/bin/Release/netcoreapp1.1/publish/Swagger.xml && \
+ cp /projects/ombi/src/Ombi.Updater/bin/Release/netcoreapp1.1/publish/Ombi.Updater.dll /projects/ombi/src/Ombi/bin/Release/netcoreapp1.1/publish/Ombi.Updater.dll && \
+ 7z a Ombi_ubuntu.zip /projects/ombi/src/Ombi/bin/Release/netcoreapp1.1/publish
 
 RUN \
  mkdir -p \
