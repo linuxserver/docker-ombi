@@ -2,7 +2,6 @@ FROM lsiobase/xenial
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
-ARG OMBI_CHECKOUT="f597c5253346fbdd9af8c121ad83c1263c8795e4"
 
 # install packages
 RUN \
@@ -56,8 +55,6 @@ RUN \
 # build ombi
 RUN \
  git clone --branch=DotNetCore https://github.com/tidusjar/Ombi.git /projects/ombi && \
- cd /projects/ombi && \
- git checkout -qf ${OMBI_CHECKOUT} && \
  cd /projects/ombi/src/Ombi && \
  dotnet restore && \
  npm install && \

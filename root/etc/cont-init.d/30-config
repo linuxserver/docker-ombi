@@ -1,30 +1,22 @@
 #!/usr/bin/with-contenv bash
 
 # link database file
-[[ ! -e /config/Ombi.sqlite ]] && \
-	: > /config/Ombi.sqlite
-[[ -e /opt/ombi/Ombi.sqlite && ! -L /opt/ombi/Ombi.sqlite ]] && \
-	rm /opt/ombi/Ombi.sqlite
-[[ ! -L /opt/ombi/Ombi.sqlite ]] && \
-	ln -s /config/Ombi.sqlite /opt/ombi/Ombi.sqlite
+[[ ! -e /config/Ombi.db ]] && \
+	: > /config/Ombi.db
+[[ -e /app/ombi/Ombi.db && ! -L /app/ombi/Ombi.db ]] && \
+	rm /app/ombi/Ombi.db
+[[ ! -L /app/ombi/Ombi.db ]] && \
+	ln -s /config/Ombi.db /app/ombi/Ombi.db
 
-# link log folder
+# link log folder
 [[ ! -d /config/logs ]] && \
 	mkdir -p /config/logs
-[[ -d /opt/ombi/logs && ! -L /opt/ombi/logs ]] && \
-	rm -rf /opt/ombi/logs
-[[ ! -L /opt/ombi/logs ]] && \
-	ln -s /config/logs /opt/ombi/logs
+[[ -d /app/ombi/Logs && ! -L /app/ombi/Logs ]] && \
+	rm -rf /app/ombi/Logs
+[[ ! -L /app/ombi/Logs ]] && \
+	ln -s /config/logs /app/ombi/Logs
 
-# link backup folder
-[[ ! -d /config/BackupSystem ]] && \
-	mkdir -p /config/BackupSystem
-[[ -d /opt/ombi/BackupSystem && ! -L /opt/ombi/BackupSystem ]] && \
-	rm -rf /opt/ombi/BackupSystem
-[[ ! -L /opt/BackupSystem ]] && \
-	ln -s /config/BackupSystem opt/ombi/BackupSystem
-
-# permissions
+# permissions
 chown -R abc:abc \
-	/config \
-	/opt
+	/app/ombi \
+	/config

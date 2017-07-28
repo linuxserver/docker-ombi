@@ -1,4 +1,6 @@
 #!/usr/bin/with-contenv bash
 
+cd /app/ombi || exit
+
 exec \
-	s6-setuidgid abc mono /opt/ombi/Ombi.exe
+	s6-setuidgid abc dotnet /app/ombi/Ombi.dll
