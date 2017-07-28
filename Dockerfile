@@ -21,8 +21,7 @@ RUN \
 	/etc/apt/sources.list.d/dotnetdev.list && \
  apt-get update && \
  apt-get install -y \
-	dotnet-sharedframework-microsoft.netcore.app-1.1.2 \
-	sqlite3 && \
+	dotnet-sharedframework-microsoft.netcore.app-1.1.2 && \
 
 # install ombi
  curl -o \
