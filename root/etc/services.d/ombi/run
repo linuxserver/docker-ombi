@@ -3,4 +3,4 @@
 cd /app/ombi || exit
 
 exec \
-	s6-setuidgid abc dotnet /app/ombi/Ombi.dll
+	s6-setuidgid abc /app/ombi/Ombi
