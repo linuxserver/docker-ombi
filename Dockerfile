@@ -15,8 +15,9 @@ ENV ASPNETCORE_URLS="http://*:3579"
 RUN \
  apt-get update && \
  apt-get install -y \
-	libunwind8 \
-	libicu55 && \
+ 	libcurl3 \
+	libicu55 \
+	libunwind8 && \
 
 # install ombi
  mkdir -p /app/ombi && \
