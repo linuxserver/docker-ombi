@@ -9,7 +9,6 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 # environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG OMBI_VER="i7u4d9tfbeh8d0hr"
-ENV ASPNETCORE_URLS="http://*:3579"
 
 # install packages
 RUN \
@@ -37,5 +36,5 @@ RUN \
 COPY /root /
 
 # ports and volumes
-EXPOSE 3579
+EXPOSE 5000
 VOLUME /config
