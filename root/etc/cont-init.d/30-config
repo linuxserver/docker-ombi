@@ -1,21 +1,5 @@
 #!/usr/bin/with-contenv bash
 
-# link database file
-[[ ! -e /config/Ombi.db ]] && \
-	: > /config/Ombi.db
-[[ -e /app/ombi/Ombi.db && ! -L /app/ombi/Ombi.db ]] && \
-	rm /app/ombi/Ombi.db
-[[ ! -L /app/ombi/Ombi.db ]] && \
-	ln -s /config/Ombi.db /app/ombi/Ombi.db
-
-# link log folder
-[[ ! -d /config/logs ]] && \
-	mkdir -p /config/logs
-[[ -d /app/ombi/Logs && ! -L /app/ombi/Logs ]] && \
-	rm -rf /app/ombi/Logs
-[[ ! -L /app/ombi/Logs ]] && \
-	ln -s /config/logs /app/ombi/Logs
-
 # permissions
 chown -R abc:abc \
 	/app/ombi \
