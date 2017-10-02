@@ -8,7 +8,6 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 
 # environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
-ARG OMBI_VER="s4ef2sd3g2qlsnmh"
 
 # install packages
 RUN \
@@ -22,7 +21,7 @@ RUN \
  mkdir -p /app/ombi && \
  curl -o \
  /tmp/ombi-src.tar.gz -L \
-	"https://ci.appveyor.com/api/buildjobs/${OMBI_VER}/artifacts/linux.tar.gz" && \
+	"https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz" && \
  tar xzf /tmp/ombi-src.tar.gz -C /app/ombi/ && \
  chmod +x /app/ombi/Ombi && \
 
