@@ -1,5 +1,20 @@
 #!/usr/bin/with-contenv bash
 
+# cleanup any existing install
+[[ -d /app/ombi ]] && \
+	rm -rf /app/ombi
+mkdir -p /app/ombi
+
+# (re)install preview version of ombi
+curl -o \
+	/tmp/ombi-src.tar.gz -L \
+	"https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz"
+tar xf \
+	/tmp/ombi-src.tar.gz -C \
+	/app/ombi/
+rm \
+	/tmp/*.tar.gz
+
 # permissions
 chown -R abc:abc \
 	/app/ombi \
