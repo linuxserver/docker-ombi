@@ -40,7 +40,7 @@ docker create \
     -v <path to data>:/config \
     -e PGID=<gid> -e PUID=<uid>  \
     -e TZ=<timezone> \
-    -p 5000:5000 \
+    -p 3579:3579 \
     linuxserver/ombi
 ```
 
@@ -78,7 +78,7 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 
 ## Setting up the application
 
-Webui is at `<your-ip>:5000`, Follow the setup wizard on initial install.  Then configure the required services.
+Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then configure the required services.
 
 ## Info
 
