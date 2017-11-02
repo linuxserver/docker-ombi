@@ -36,12 +36,11 @@ Even automatically sent them weekly newsletters of new content that has been add
 ```
 docker create \
     --name=ombi \
-    -v /etc/localtime:/etc/localtime:ro \
     -v <path to data>:/config \
     -e PGID=<gid> -e PUID=<uid>  \
     -e TZ=<timezone> \
     -p 3579:3579 \
-    linuxserver/ombi
+    lsiodev/ombi-preview
 ```
 
 ## Parameters
@@ -53,7 +52,6 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 
 
 * `-p 3579` - the port(s)
-* `-v /etc/localtime` for timesync - see [Localtime](#localtime) for important information
 * `-e TZ` for timezone information, Europe/London - see [Localtime](#localtime) for important information
 * `-v /config` - where ombi should store its config files
 * `-e PGID` for GroupID - see below for explanation
@@ -95,5 +93,6 @@ Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then 
 
 ## Versions
 
++ **02.11.17:** Switch to Ombi v3 based on .net core, available for beta testing
 + **16.04.17:** Switch to using inhouse mono baseimage.
 + **17.02.17:** Initial Release.
