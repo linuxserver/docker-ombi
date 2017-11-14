@@ -22,7 +22,7 @@ RUN \
  mkdir -p /app/ombi && \
  curl -o \
  /tmp/ombi-src.tar.gz -L \
-	"https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz" && \
+	"https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=DotNetCore" && \
  tar xzf /tmp/ombi-src.tar.gz -C /app/ombi/ && \
  chmod +x /app/ombi/Ombi && \
 
