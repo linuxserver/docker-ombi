@@ -8,7 +8,7 @@ mkdir -p /app/ombi
 # (re)install preview version of ombi
 curl -o \
 	/tmp/ombi-src.tar.gz -L \
-	"https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=DotNetCore"
+	"https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=DotNetCore&pr=false"
 tar xzf \
 	/tmp/ombi-src.tar.gz -C \
 	/app/ombi/
