@@ -1,13 +1,13 @@
 FROM lsiobase/mono
-MAINTAINER sparklyballs
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="sparklyballs"
 
-# install ombi
 RUN \
+ echo "**** install ombi ****" && \
  mkdir -p \
 	/opt && \
  ombi_tag=$(curl -sX GET "https://api.github.com/repos/tidusjar/Ombi/releases/latest" \
@@ -17,8 +17,7 @@ RUN \
 	"https://github.com/tidusjar/Ombi/releases/download/${ombi_tag}/Ombi.zip" && \
  unzip -q /tmp/ombi-src.zip -d /tmp && \
  mv /tmp/Release /opt/ombi && \
-
-# clean up
+ echo "**** clean up ****" && \
  rm -rf \
 	/tmp/* \
 	/var/lib/apt/lists/* \
