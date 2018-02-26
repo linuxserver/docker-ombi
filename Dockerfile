@@ -20,9 +20,10 @@ RUN \
 
 # install ombi
  mkdir -p /app/ombi && \
+ OMBI_VER="$(curl -sX GET https://api.github.com/repos/tidusjar/Ombi/releases/latest | grep 'tag_name' | cut -d\" -f4)" && \
  curl -o \
  /tmp/ombi-src.tar.gz -L \
-	"https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=DotNetCore&pr=false" && \
+	"https://github.com/tidusjar/Ombi/releases/download/Ombi-${OMBI_VER}/linux.tar.gz" && \
  tar xzf /tmp/ombi-src.tar.gz -C /app/ombi/ && \
  chmod +x /app/ombi/Ombi && \
 
