@@ -93,6 +93,7 @@ Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then 
 
 ## Versions
 
++ **04.03.18:** Change ombi branch to preview
 + **27.11.17:** Ignore PR build artifacts when pulling the latest
 + **14.11.17:** Pull the release artifact from the DotNetCore branch
 + **02.11.17:** Switch to Ombi v3 based on .net core, available for beta testing
