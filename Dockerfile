@@ -1,4 +1,4 @@
-FROM lsiobase/mono
+FROM lsiobase/xenial
 
 # set version label
 ARG BUILD_DATE
@@ -7,16 +7,21 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="sparklyballs"
 
 RUN \
+ apt-get update && \
+ apt-get install -y \
+ 	libcurl3 \
+	libicu55 \
+	libunwind8 && \
  echo "**** install ombi ****" && \
  mkdir -p \
 	/opt && \
  ombi_tag=$(curl -sX GET "https://api.github.com/repos/tidusjar/Ombi/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]') && \
  curl -o \
- /tmp/ombi-src.zip -L \
-	"https://github.com/tidusjar/Ombi/releases/download/${ombi_tag}/Ombi.zip" && \
- unzip -q /tmp/ombi-src.zip -d /tmp && \
- mv /tmp/Release /opt/ombi && \
+ /tmp/ombi-src.tar.gz -L \
+	"https://github.com/tidusjar/Ombi/releases/download/${ombi_tag}/linux.tar.gz" && \
+ tar xzf /tmp/ombi-src.tar.gz -C /opt/ombi/ && \
+ chmod +x /opt/ombi/Ombi && \
  echo "**** clean up ****" && \
  rm -rf \
 	/tmp/* \
