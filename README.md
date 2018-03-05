@@ -40,7 +40,7 @@ docker create \
     -e PGID=<gid> -e PUID=<uid>  \
     -e TZ=<timezone> \
     -p 3579:3579 \
-    lsiodev/ombi-preview
+    linuxserver/ombi
 ```
 
 ## Parameters
@@ -58,10 +58,6 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 * `-e PUID` for UserID - see below for explanation
 
 It is based on ubuntu xenial with s6 overlay, for shell access whilst the container is running do `docker exec -it ombi /bin/bash`.
-
-## Localtime
-
-It is important that you either set `-v /etc/localtime:/etc/localtime:ro` or the TZ variable, mono will throw exceptions without one of them set.
  
 ### User / Group Identifiers
 
@@ -93,8 +89,6 @@ Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then 
 
 ## Versions
 
-+ **27.11.17:** Ignore PR build artifacts when pulling the latest
-+ **14.11.17:** Pull the release artifact from the DotNetCore branch
-+ **02.11.17:** Switch to Ombi v3 based on .net core, available for beta testing
++ **05.03.18:** Switch to Ombi v3 stable based on .net core. V3 uses a different database structure so the user has to set up from scratch again. V2 settings are not lost by updating; the user can go back to v2 with old settings and data by pulling image tag 64
 + **16.04.17:** Switch to using inhouse mono baseimage.
 + **17.02.17:** Initial Release.
