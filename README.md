@@ -36,7 +36,6 @@ Even automatically sent them weekly newsletters of new content that has been add
 ```
 docker create \
     --name=ombi \
-    -v /etc/localtime:/etc/localtime:ro \
     -v <path to data>:/config \
     -e PGID=<gid> -e PUID=<uid>  \
     -e TZ=<timezone> \
@@ -53,17 +52,12 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 
 
 * `-p 3579` - the port(s)
-* `-v /etc/localtime` for timesync - see [Localtime](#localtime) for important information
-* `-e TZ` for timezone information, Europe/London - see [Localtime](#localtime) for important information
+* `-e TZ` for timezone information, Europe/London
 * `-v /config` - where ombi should store its config files
 * `-e PGID` for GroupID - see below for explanation
 * `-e PUID` for UserID - see below for explanation
 
 It is based on ubuntu xenial with s6 overlay, for shell access whilst the container is running do `docker exec -it ombi /bin/bash`.
-
-## Localtime
-
-It is important that you either set `-v /etc/localtime:/etc/localtime:ro` or the TZ variable, mono will throw exceptions without one of them set.
  
 ### User / Group Identifiers
 
@@ -80,6 +74,10 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 
 Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then configure the required services.
 
+## Updating to Ombi v3
+
+This image now contains Ombi v3. The settings and database from v2 are not compatible with v3 and existing users will have to set up v3 from scratch. However, the v2 settings and database will be preserved. Users wishing to remain on or go back to v2 with existing data can pull the image tag `linuxserver/ombi:v2` but keep in mind that it will no longer receive any updates.
+
 ## Info
 
 * To monitor the logs of the container in realtime `docker logs -f ombi`.
@@ -95,6 +93,7 @@ Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then 
 
 ## Versions
 
++ **05.03.18:** Switch to Ombi v3 stable based on .net core. V3 uses a different database structure so the user has to set up from scratch again. V2 settings are not lost by updating; the user can go back to v2 with old settings and data by pulling image tag `v2`
 + **26.01.18:** Fix continuation lines.
 + **16.04.17:** Switch to using inhouse mono baseimage.
 + **17.02.17:** Initial Release.

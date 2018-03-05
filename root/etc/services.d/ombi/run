@@ -1,4 +1,6 @@
 #!/usr/bin/with-contenv bash
 
+cd /opt/ombi || exit
+
 exec \
-	s6-setuidgid abc mono /opt/ombi/Ombi.exe
+	s6-setuidgid abc /opt/ombi/Ombi --storage "/config" --host http://*:3579
