@@ -14,7 +14,7 @@ RUN \
 	libunwind8 && \
  echo "**** install ombi ****" && \
  mkdir -p \
-	/opt && \
+	/opt/ombi && \
  ombi_tag=$(curl -sX GET "https://api.github.com/repos/tidusjar/Ombi/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]') && \
  curl -o \
