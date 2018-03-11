@@ -93,6 +93,7 @@ This image now contains Ombi v3. The settings and database from v2 are not compa
 
 ## Versions
 
++ **05.03.18:** Add HOME env to Dockerfile.
 + **05.03.18:** Switch to Ombi v3 stable based on .net core. V3 uses a different database structure so the user has to set up from scratch again. V2 settings are not lost by updating; the user can go back to v2 with old settings and data by pulling image tag `v2`
 + **26.01.18:** Fix continuation lines.
 + **16.04.17:** Switch to using inhouse mono baseimage.
