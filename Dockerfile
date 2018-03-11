@@ -6,6 +6,9 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="sparklyballs"
 
+# environment settings
+ENV HOME="/config"
+
 RUN \
  apt-get update && \
  apt-get install -y \
