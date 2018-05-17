@@ -39,7 +39,7 @@ docker create \
     -v <path to data>:/config \
     -e PGID=<gid> -e PUID=<uid>  \
     -e TZ=<timezone> \
-    -p 3579:3579 \
+    -p 5000:5000 \
     linuxserver/ombi
 ```
 
@@ -51,7 +51,7 @@ So -p 8080:80 would expose port 80 from inside the container to be accessible fr
 http://192.168.x.x:8080 would show you what's running INSIDE the container on port 80.`
 
 
-* `-p 3579` - the port(s)
+* `-p 5000` - the port(s)
 * `-e TZ` for timezone information, Europe/London
 * `-v /config` - where ombi should store its config files
 * `-e PGID` for GroupID - see below for explanation
