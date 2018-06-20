@@ -93,6 +93,7 @@ Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then 
 
 ## Versions
 
++ **20.06.18:** Remove no longer needed dependency
 + **04.03.18:** Change ombi branch to preview
 + **27.11.17:** Ignore PR build artifacts when pulling the latest
 + **14.11.17:** Pull the release artifact from the DotNetCore branch
