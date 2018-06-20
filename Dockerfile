@@ -1,31 +1,27 @@
 FROM lsiobase/ubuntu:xenial
-MAINTAINER sparklyballs
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="sparklyballs"
 
-# environment variables
-ARG DEBIAN_FRONTEND="noninteractive"
+# environment settings
 ENV HOME="/config"
 
-# install packages
 RUN \
  apt-get update && \
  apt-get install -y \
  	libcurl3 \
 	libicu55 && \
-
-# install ombi
+ echo "**** install ombi ****" && \
  mkdir -p /app/ombi && \
  curl -o \
  /tmp/ombi-src.tar.gz -L \
 	"https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop&pr=false" && \
  tar xzf /tmp/ombi-src.tar.gz -C /app/ombi/ && \
  chmod +x /app/ombi/Ombi && \
-
-# clean up
+ echo "**** clean up ****" && \
  rm -rf \
 	/tmp/* \
 	/var/lib/apt/lists/* \
