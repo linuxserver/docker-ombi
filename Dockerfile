@@ -15,8 +15,7 @@ RUN \
  apt-get update && \
  apt-get install -y \
  	libcurl3 \
-	libicu55 \
-	libunwind8 && \
+	libicu55 && \
 
 # install ombi
  mkdir -p /app/ombi && \
