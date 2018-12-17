@@ -1,100 +1,140 @@
-[linuxserverurl]: https://linuxserver.io
-[forumurl]: https://forum.linuxserver.io
-[ircurl]: https://www.linuxserver.io/irc/
-[podcasturl]: https://www.linuxserver.io/podcast/
-[appurl]: https://ombi.io/
-[hub]: https://hub.docker.com/r/linuxserver/ombi/
+[![linuxserver.io](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_medium.png)](https://linuxserver.io)
 
-[![linuxserver.io](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_medium.png)][linuxserverurl]
+The [LinuxServer.io](https://linuxserver.io) team brings you another container release featuring :-
 
-The [LinuxServer.io][linuxserverurl] team brings you another container release featuring easy user mapping and community support. Find us for support at:
-* [forum.linuxserver.io][forumurl]
-* [IRC][ircurl] on freenode at `#linuxserver.io`
-* [Podcast][podcasturl] covers everything to do with getting the most from your Linux Server plus a focus on all things Docker and containerisation!
+ * regular and timely application updates
+ * easy user mappings (PGID, PUID)
+ * custom base image with s6 overlay
+ * weekly base OS updates with common layers across the entire LinuxServer.io ecosystem to minimise space usage, down time and bandwidth
+ * regular security updates
 
-# linuxserver/ombi
-[![](https://images.microbadger.com/badges/version/linuxserver/ombi.svg)](https://microbadger.com/images/linuxserver/ombi "Get your own version badge on microbadger.com")[![](https://images.microbadger.com/badges/image/linuxserver/ombi.svg)](https://microbadger.com/images/linuxserver/ombi "Get your own image badge on microbadger.com")[![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/ombi.svg)][hub][![Docker Stars](https://img.shields.io/docker/stars/linuxserver/ombi.svg)][hub][![Build Status](https://ci.linuxserver.io/buildStatus/icon?job=Docker-Builders/x86-64/x86-64-ombi)](https://ci.linuxserver.io/job/Docker-Builders/job/x86-64/job/x86-64-ombi/)
+Find us at:
+* [Discord](https://discord.gg/YWrKVTn) - realtime support / chat with the community and the team.
+* [IRC](https://irc.linuxserver.io) - on freenode at `#linuxserver.io`. Our primary support channel is Discord.
+* [Blog](https://blog.linuxserver.io) - all the things you can do with our containers including How-To guides, opinions and much more!
+* [Podcast](https://anchor.fm/linuxserverio) - on hiatus. Coming back soon (late 2018).
 
-[hub]: https://hub.docker.com/r/linuxserver/ombi/
+# PSA: Changes are happening
 
-So what is [Ombi][appurl] you ask!?
+From August 2018 onwards, Linuxserver are in the midst of switching to a new CI platform which will enable us to build and release multiple architectures under a single repo. To this end, existing images for `arm64` and `armhf` builds are being deprecated. They are replaced by a manifest file in each container which automatically pulls the correct image for your architecture. You'll also be able to pull based on a specific architecture tag.
 
-Ombi allows you to host your own Plex Request and user management system.
- 
-If you are sharing your Plex server with other users, allow them to request new content using an easy to manage interface! 
+TLDR: Multi-arch support is changing from multiple repos to one repo per container image.
 
-Manage all your requests for Movies and TV with ease, leave notes for the user and get notification when a user requests something. 
+# [linuxserver/ombi](https://github.com/linuxserver/docker-ombi)
+[![](https://img.shields.io/discord/354974912613449730.svg?logo=discord&label=LSIO%20Discord&style=flat-square)](https://discord.gg/YWrKVTn)
+[![](https://images.microbadger.com/badges/version/linuxserver/ombi.svg)](https://microbadger.com/images/linuxserver/ombi "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/linuxserver/ombi.svg)](https://microbadger.com/images/linuxserver/ombi "Get your own version badge on microbadger.com")
+![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/ombi.svg)
+![Docker Stars](https://img.shields.io/docker/stars/linuxserver/ombi.svg)
 
-Allow your users to post issues against their requests so you know there is a problem with the audio etc. 
-
+[Ombi](https://ombi.io) allows you to host your own Plex Request and user management system.
+If you are sharing your Plex server with other users, allow them to request new content using an easy to manage interface!
+Manage all your requests for Movies and TV with ease, leave notes for the user and get notification when a user requests something.
+Allow your users to post issues against their requests so you know there is a problem with the audio etc.
 Even automatically sent them weekly newsletters of new content that has been added to your Plex server!
 
-[![ombi](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/ombi.png)][appurl]
+[![ombi](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/ombi.png)](https://ombi.io)
+
+## Supported Architectures
+
+Our images support multiple architectures such as `x86-64`, `arm64` and `armhf`. We utilise the docker manifest for multi-platform awareness. More information is available from docker [here](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list). 
+
+The architectures supported by this image are:
+
+| Architecture | Tag |
+| :----: | --- |
+| x86-64 | amd64-latest |
+| arm64 | arm64v8-latest |
+| armhf | arm32v6-latest |
 
 ## Usage
 
+Here are some example snippets to help you get started creating a container.
+
+### docker
+
 ```
 docker create \
-    --name=ombi \
-    -v <path to data>:/config \
-    -e PGID=<gid> -e PUID=<uid>  \
-    -e TZ=<timezone> \
-    -p 3579:3579 \
-    linuxserver/ombi
+  --name=ombi \
+  -e PUID=1001 \
+  -e PGID=1001 \
+  -e TZ=Europe/London \
+  -p 3579:3579 \
+  -v </path/to/appdata/config>:/config \
+  --restart unless-stopped \
+  linuxserver/ombi
+```
+
+
+### docker-compose
+
+Compatible with docker-compose v2 schemas.
+
+```
+---
+version: "2"
+services:
+  ombi:
+    image: linuxserver/ombi
+    container_name: ombi
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/London
+    volumes:
+      - </path/to/appdata/config>:/config
+    ports:
+      - 3579:3579
+    mem_limit: 4096m
+    restart: unless-stopped
 ```
 
 ## Parameters
 
-`The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side. 
-For example with a port -p external:internal - what this shows is the port mapping from internal to external of the container.
-So -p 8080:80 would expose port 80 from inside the container to be accessible from the host's IP on port 8080
-http://192.168.x.x:8080 would show you what's running INSIDE the container on port 80.`
+Container images are configured using parameters passed at runtime (such as those above). These parameters are separated by a colon and indicate `<external>:<internal>` respectively. For example, `-p 8080:80` would expose port `80` from inside the container to be accessible from the host's IP on port `8080` outside the container.
 
+| Parameter | Function |
+| :----: | --- |
+| `-p 3579` | web gui |
+| `-e PUID=1001` | for UserID - see below for explanation |
+| `-e PGID=1001` | for GroupID - see below for explanation |
+| `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
+| `-v /config` | Contains all relevant configuration files. |
 
-* `-p 3579` - the port(s)
-* `-e TZ` for timezone information, Europe/London
-* `-v /config` - where ombi should store its config files
-* `-e PGID` for GroupID - see below for explanation
-* `-e PUID` for UserID - see below for explanation
+## User / Group Identifiers
 
-It is based on ubuntu xenial with s6 overlay, for shell access whilst the container is running do `docker exec -it ombi /bin/bash`.
- 
-### User / Group Identifiers
+When using volumes (`-v` flags) permissions issues can arise between the host OS and the container, we avoid this issue by allowing you to specify the user `PUID` and group `PGID`.
 
-Sometimes when using data volumes (`-v` flags) permissions issues can arise between the host OS and the container. We avoid this issue by allowing you to specify the user `PUID` and group `PGID`. Ensure the data volume directory on the host is owned by the same user you specify and it will "just work" ™.
+Ensure any volume directories on the host are owned by the same user you specify and any permissions issues will vanish like magic.
 
-In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as below:
+In this instance `PUID=1001` and `PGID=1001`, to find yours use `id user` as below:
 
 ```
-  $ id <dockeruser>
-      uid=1001(dockeruser) gid=1001(dockergroup) groups=1001(dockergroup)
+  $ id username
+    uid=1001(dockeruser) gid=1001(dockergroup) groups=1001(dockergroup)
 ```
 
-## Setting up the application
+&nbsp;
+## Application Setup
 
-Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then configure the required services.
+Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install.  Then configure the required services.
 
-## Updating to Ombi v3
 
-This image now contains Ombi v3. The settings and database from v2 are not compatible with v3 and existing users will have to set up v3 from scratch. However, the v2 settings and database will be preserved. Users wishing to remain on or go back to v2 with existing data can pull the image tag `linuxserver/ombi:v2` but keep in mind that it will no longer receive any updates.
 
-## Info
+## Support Info
 
-* To monitor the logs of the container in realtime `docker logs -f ombi`.
 * Shell access whilst the container is running: `docker exec -it ombi /bin/bash`
-
+* To monitor the logs of the container in realtime: `docker logs -f ombi`
 * container version number 
-
-`docker inspect -f '{{ index .Config.Labels "build_version" }}' ombi`
-
+  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' ombi`
 * image version number
-
-`docker inspect -f '{{ index .Config.Labels "build_version" }}' linuxserver/ombi`
+  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' linuxserver/ombi`
 
 ## Versions
 
-+ **11.03.18:** Add HOME env to Dockerfile.
-+ **05.03.18:** Switch to Ombi v3 stable based on .net core. V3 uses a different database structure so the user has to set up from scratch again. V2 settings are not lost by updating; the user can go back to v2 with old settings and data by pulling image tag `v2`
-+ **26.01.18:** Fix continuation lines.
-+ **16.04.17:** Switch to using inhouse mono baseimage.
-+ **17.02.17:** Initial Release.
+* **17.12.18:** - Switch to multi-arch builds and add aarch64 image.
+* **11.03.18:** - Add HOME env to Dockerfile.
+* **05.03.18:** - Switch to Ombi v3 stable based on .net core.
+* **26.01.18:** - Fix continuation lines.
+* **16.04.17:** - Switch to using inhouse mono baseimage.
+* **17.02.17:** - Initial Release.
