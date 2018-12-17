@@ -1,0 +1,29 @@
+---
+
+# jenkins variables
+project_name: docker-ombi
+external_type: github_stable
+release_type: stable
+release_tag: latest
+ls_branch: master
+repo_vars:
+  - EXT_GIT_BRANCH = 'master'
+  - EXT_USER = 'tidusjar'
+  - EXT_REPO = 'Ombi'
+  - CONTAINER_NAME = 'ombi'
+  - BUILD_VERSION_ARG = 'OMBI_RELEASE'
+  - LS_USER = 'linuxserver'
+  - LS_REPO = 'docker-ombi'
+  - DOCKERHUB_IMAGE = 'linuxserver/ombi'
+  - DEV_DOCKERHUB_IMAGE = 'lsiodev/ombi'
+  - PR_DOCKERHUB_IMAGE = 'lspipepr/ombi'
+  - DIST_IMAGE = 'ubuntu'
+  - MULTIARCH='true'
+  - CI='true'
+  - CI_WEB='true'
+  - CI_PORT='3579'
+  - CI_SSL='false'
+  - CI_DELAY='120'
+  - CI_DOCKERENV='TZ=US/Pacific'
+  - CI_AUTH='user:password'
+  - CI_WEBPATH=''
