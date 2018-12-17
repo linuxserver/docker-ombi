@@ -10,9 +10,7 @@ pipeline {
   environment {
     BUILDS_DISCORD=credentials('build_webhook_url')
     GITHUB_TOKEN=credentials('498b4638-2d02-4ce5-832d-8a57d01d97ab')
-    EXT_GIT_BRANCH = 'master'
-    EXT_USER = 'tidusjar'
-    EXT_REPO = 'Ombi'
+    EXT_BLOB = 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop&pr=false'
     CONTAINER_NAME = 'ombi'
     BUILD_VERSION_ARG = 'OMBI_RELEASE'
     LS_USER = 'linuxserver'
@@ -21,6 +19,7 @@ pipeline {
     DEV_DOCKERHUB_IMAGE = 'lsiodev/ombi'
     PR_DOCKERHUB_IMAGE = 'lspipepr/ombi'
     DIST_IMAGE = 'ubuntu'
+    DIST_TAG = 'bionic'
     MULTIARCH='true'
     CI='true'
     CI_WEB='true'
@@ -38,7 +37,7 @@ pipeline {
         script{
           env.EXIT_STATUS = ''
           env.LS_RELEASE = sh(
-            script: '''curl -s https://api.github.com/repos/${LS_USER}/${LS_REPO}/releases/latest | jq -r '. | .tag_name' ''',
+            script: '''curl -s https://api.github.com/repos/${LS_USER}/${LS_REPO}/releases | jq -r 'first(.[] | select(.prerelease == true)) | .tag_name' ''',
             returnStdout: true).trim()
           env.LS_RELEASE_NOTES = sh(
             script: '''git log -1 --pretty=%B | sed -E ':a;N;$!ba;s/\\r{0,1}\\n/\\\\n/g' ''',
@@ -83,12 +82,12 @@ pipeline {
           env.PACKAGE_TAG = sh(
             script: '''#!/bin/bash
                        http_code=$(curl --write-out %{http_code} -s -o /dev/null \
-                                   https://raw.githubusercontent.com/${LS_USER}/${LS_REPO}/master/package_versions.txt)
+                                   https://raw.githubusercontent.com/${LS_USER}/${LS_REPO}/development/package_versions.txt)
                        if [[ "${http_code}" -ne 200 ]] ; then
                          echo none
                        else
                          curl -s \
-                           https://raw.githubusercontent.com/${LS_USER}/${LS_REPO}/master/package_versions.txt \
+                           https://raw.githubusercontent.com/${LS_USER}/${LS_REPO}/development/package_versions.txt \
                          | md5sum | cut -c1-8
                        fi''',
             returnStdout: true).trim()
@@ -98,28 +97,26 @@ pipeline {
     /* ########################
        External Release Tagging
        ######################## */
-    // If this is a stable github release use the latest endpoint from github to determine the ext tag
-    stage("Set ENV github_stable"){
+    // If this is a File blob set the ext version based on the remote files md5
+    stage("Set ENV external_blob"){
      steps{
        script{
          env.EXT_RELEASE = sh(
-           script: '''curl -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq -r '. | .tag_name' ''',
+           script: '''#! /bin/bash
+                      if [ $(curl -I -sL -w "%{http_code}" ${EXT_BLOB} -o /dev/null) == 200 ]; then
+                        curl -s -L ${EXT_BLOB} | md5sum | cut -c1-8
+                      else
+                        exit 1
+                      fi''',
            returnStdout: true).trim()
+         env.RELEASE_LINK = 'Remote_Blob_Change'
        }
      }
     }
-    // If this is a stable or devel github release generate the link for the build message
-    stage("Set ENV github_link"){
-     steps{
-       script{
-         env.RELEASE_LINK = 'https://github.com/' + env.EXT_USER + '/' + env.EXT_REPO + '/releases/tag/' + env.EXT_RELEASE
-       }
-     }
-    }
-    // If this is a master build use live docker endpoints
+    // If this is a development build use live docker endpoints
     stage("Set ENV live build"){
       when {
-        branch "master"
+        branch "development"
         environment name: 'CHANGE_ID', value: ''
       }
       steps {
@@ -137,7 +134,7 @@ pipeline {
     // If this is a dev build use dev docker endpoints
     stage("Set ENV dev build"){
       when {
-        not {branch "master"}
+        not {branch "development"}
         environment name: 'CHANGE_ID', value: ''
       }
       steps {
@@ -175,7 +172,7 @@ pipeline {
     // Use helper containers to render templated files
     stage('Update-Templates') {
       when {
-        branch "master"
+        branch "development"
         environment name: 'CHANGE_ID', value: ''
         expression {
           env.CONTAINER_NAME != null
@@ -186,13 +183,13 @@ pipeline {
               set -e
               TEMPDIR=$(mktemp -d)
               docker pull linuxserver/jenkins-builder:latest
-              docker run --rm -e CONTAINER_NAME=${CONTAINER_NAME} -e GITHUB_BRANCH=master -v ${TEMPDIR}:/ansible/jenkins linuxserver/jenkins-builder:latest 
+              docker run --rm -e CONTAINER_NAME=${CONTAINER_NAME} -e GITHUB_BRANCH=development -v ${TEMPDIR}:/ansible/jenkins linuxserver/jenkins-builder:latest 
               docker pull linuxserver/doc-builder:latest
-              docker run --rm -e CONTAINER_NAME=${CONTAINER_NAME} -e GITHUB_BRANCH=master -v ${TEMPDIR}:/ansible/readme linuxserver/doc-builder:latest
+              docker run --rm -e CONTAINER_NAME=${CONTAINER_NAME} -e GITHUB_BRANCH=development -v ${TEMPDIR}:/ansible/readme linuxserver/doc-builder:latest
               if [ "$(md5sum ${TEMPDIR}/${LS_REPO}/Jenkinsfile | awk '{ print $1 }')" != "$(md5sum Jenkinsfile | awk '{ print $1 }')" ] || [ "$(md5sum ${TEMPDIR}/${CONTAINER_NAME}/README.md | awk '{ print $1 }')" != "$(md5sum README.md | awk '{ print $1 }')" ]; then
                 mkdir -p ${TEMPDIR}/repo
                 git clone https://github.com/${LS_USER}/${LS_REPO}.git ${TEMPDIR}/repo/${LS_REPO}
-                git --git-dir ${TEMPDIR}/repo/${LS_REPO}/.git checkout -f master
+                git --git-dir ${TEMPDIR}/repo/${LS_REPO}/.git checkout -f development
                 cp ${TEMPDIR}/${CONTAINER_NAME}/README.md ${TEMPDIR}/repo/${LS_REPO}/
                 cp ${TEMPDIR}/docker-${CONTAINER_NAME}/Jenkinsfile ${TEMPDIR}/repo/${LS_REPO}/
                 cd ${TEMPDIR}/repo/${LS_REPO}/
@@ -214,7 +211,7 @@ pipeline {
     // Exit the build if the Templated files were just updated
     stage('Template-exit') {
       when {
-        branch "master"
+        branch "development"
         environment name: 'CHANGE_ID', value: ''
         environment name: 'FILES_UPDATED', value: 'true'
         expression {
@@ -311,7 +308,7 @@ pipeline {
     // Take the image we just built and dump package versions for comparison
     stage('Update-packages') {
       when {
-        branch "master"
+        branch "development"
         environment name: 'CHANGE_ID', value: ''
         environment name: 'EXIT_STATUS', value: ''
       }
@@ -335,7 +332,7 @@ pipeline {
               fi
               if [ "$(md5sum ${TEMPDIR}/package_versions.txt | cut -c1-8 )" != "${PACKAGE_TAG}" ]; then
                 git clone https://github.com/${LS_USER}/${LS_REPO}.git ${TEMPDIR}/${LS_REPO}
-                git --git-dir ${TEMPDIR}/${LS_REPO}/.git checkout -f master
+                git --git-dir ${TEMPDIR}/${LS_REPO}/.git checkout -f development
                 cp ${TEMPDIR}/package_versions.txt ${TEMPDIR}/${LS_REPO}/
                 cd ${TEMPDIR}/${LS_REPO}/
                 git --git-dir ${TEMPDIR}/${LS_REPO}/.git add package_versions.txt
@@ -356,7 +353,7 @@ pipeline {
     // Exit the build if the package file was just updated
     stage('PACKAGE-exit') {
       when {
-        branch "master"
+        branch "development"
         environment name: 'CHANGE_ID', value: ''
         environment name: 'PACKAGE_UPDATED', value: 'true'
         environment name: 'EXIT_STATUS', value: ''
@@ -370,7 +367,7 @@ pipeline {
     // Exit the build if this is just a package check and there are no changes to push
     stage('PACKAGECHECK-exit') {
       when {
-        branch "master"
+        branch "development"
         environment name: 'CHANGE_ID', value: ''
         environment name: 'PACKAGE_UPDATED', value: 'false'
         environment name: 'EXIT_STATUS', value: ''
@@ -454,8 +451,8 @@ pipeline {
           sh '''#! /bin/bash
              echo $DOCKERPASS | docker login -u $DOCKERUSER --password-stdin
              '''
-          sh "docker tag ${IMAGE}:${META_TAG} ${IMAGE}:latest"
-          sh "docker push ${IMAGE}:latest"
+          sh "docker tag ${IMAGE}:${META_TAG} ${IMAGE}:development"
+          sh "docker push ${IMAGE}:development"
           sh "docker push ${IMAGE}:${META_TAG}"
         }
       }
@@ -485,24 +482,24 @@ pipeline {
                   docker tag lsiodev/buildcache:arm32v6-${COMMIT_SHA}-${BUILD_NUMBER} ${IMAGE}:arm32v6-${META_TAG}
                   docker tag lsiodev/buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} ${IMAGE}:arm64v8-${META_TAG}
                 fi'''
-          sh "docker tag ${IMAGE}:amd64-${META_TAG} ${IMAGE}:amd64-latest"
-          sh "docker tag ${IMAGE}:arm32v6-${META_TAG} ${IMAGE}:arm32v6-latest"
-          sh "docker tag ${IMAGE}:arm64v8-${META_TAG} ${IMAGE}:arm64v8-latest"
+          sh "docker tag ${IMAGE}:amd64-${META_TAG} ${IMAGE}:amd64-development"
+          sh "docker tag ${IMAGE}:arm32v6-${META_TAG} ${IMAGE}:arm32v6-development"
+          sh "docker tag ${IMAGE}:arm64v8-${META_TAG} ${IMAGE}:arm64v8-development"
           sh "docker push ${IMAGE}:amd64-${META_TAG}"
           sh "docker push ${IMAGE}:arm32v6-${META_TAG}"
           sh "docker push ${IMAGE}:arm64v8-${META_TAG}"
-          sh "docker push ${IMAGE}:amd64-latest"
-          sh "docker push ${IMAGE}:arm32v6-latest"
-          sh "docker push ${IMAGE}:arm64v8-latest"
-          sh "docker manifest push --purge ${IMAGE}:latest || :"
-          sh "docker manifest create ${IMAGE}:latest ${IMAGE}:amd64-latest ${IMAGE}:arm32v6-latest ${IMAGE}:arm64v8-latest"
-          sh "docker manifest annotate ${IMAGE}:latest ${IMAGE}:arm32v6-latest --os linux --arch arm"
-          sh "docker manifest annotate ${IMAGE}:latest ${IMAGE}:arm64v8-latest --os linux --arch arm64 --variant v8"
+          sh "docker push ${IMAGE}:amd64-development"
+          sh "docker push ${IMAGE}:arm32v6-development"
+          sh "docker push ${IMAGE}:arm64v8-development"
+          sh "docker manifest push --purge ${IMAGE}:development || :"
+          sh "docker manifest create ${IMAGE}:development ${IMAGE}:amd64-development ${IMAGE}:arm32v6-development ${IMAGE}:arm64v8-development"
+          sh "docker manifest annotate ${IMAGE}:development ${IMAGE}:arm32v6-development --os linux --arch arm"
+          sh "docker manifest annotate ${IMAGE}:development ${IMAGE}:arm64v8-development --os linux --arch arm64 --variant v8"
           sh "docker manifest push --purge ${IMAGE}:${EXT_RELEASE}-ls${LS_TAG_NUMBER} || :"
           sh "docker manifest create ${IMAGE}:${META_TAG} ${IMAGE}:amd64-${META_TAG} ${IMAGE}:arm32v6-${META_TAG} ${IMAGE}:arm64v8-${META_TAG}"
           sh "docker manifest annotate ${IMAGE}:${META_TAG} ${IMAGE}:arm32v6-${META_TAG} --os linux --arch arm"
           sh "docker manifest annotate ${IMAGE}:${META_TAG} ${IMAGE}:arm64v8-${META_TAG} --os linux --arch arm64 --variant v8"
-          sh "docker manifest push --purge ${IMAGE}:latest"
+          sh "docker manifest push --purge ${IMAGE}:development"
           sh "docker manifest push --purge ${IMAGE}:${META_TAG}"
         }
       }
@@ -510,7 +507,7 @@ pipeline {
     // If this is a public release tag it in the LS Github
     stage('Github-Tag-Push-Release') {
       when {
-        branch "master"
+        branch "development"
         expression {
           env.LS_RELEASE != env.EXT_RELEASE + '-pkg-' + env.PACKAGE_TAG + '-ls' + env.LS_TAG_NUMBER
         }
@@ -522,17 +519,17 @@ pipeline {
         sh '''curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST https://api.github.com/repos/${LS_USER}/${LS_REPO}/git/tags \
         -d '{"tag":"'${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}'",\
              "object": "'${COMMIT_SHA}'",\
-             "message": "Tagging Release '${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}' to master",\
+             "message": "Tagging Release '${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}' to development",\
              "type": "commit",\
              "tagger": {"name": "LinuxServer Jenkins","email": "jenkins@linuxserver.io","date": "'${GITHUB_DATE}'"}}' '''
         echo "Pushing New release for Tag"
         sh '''#! /bin/bash
-              curl -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq '. |.body' | sed 's:^.\\(.*\\).$:\\1:' > releasebody.json
+              echo "External Release file changed at ${EXT_BLOB}" > releasebody.json
               echo '{"tag_name":"'${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}'",\
-                     "target_commitish": "master",\
+                     "target_commitish": "development",\
                      "name": "'${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}'",\
-                     "body": "**LinuxServer Changes:**\\n\\n'${LS_RELEASE_NOTES}'\\n**'${EXT_REPO}' Changes:**\\n\\n' > start
-              printf '","draft": false,"prerelease": false}' >> releasebody.json
+                     "body": "**LinuxServer Changes:**\\n\\n'${LS_RELEASE_NOTES}'\\n**Remote Changes:**\\n\\n' > start
+              printf '","draft": false,"prerelease": true}' >> releasebody.json
               paste -d'\\0' start releasebody.json > releasebody.json.done
               curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST https://api.github.com/repos/${LS_USER}/${LS_REPO}/releases -d @releasebody.json.done'''
       }
