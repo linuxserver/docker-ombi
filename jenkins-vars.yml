@@ -2,14 +2,11 @@
 
 # jenkins variables
 project_name: docker-ombi
-external_type: github_stable
-release_type: stable
-release_tag: latest
-ls_branch: master
+external_type: external_blob
+release_tag: development
+ls_branch: development
 repo_vars:
-  - EXT_GIT_BRANCH = 'master'
-  - EXT_USER = 'tidusjar'
-  - EXT_REPO = 'Ombi'
+  - EXT_BLOB = 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop&pr=false'
   - CONTAINER_NAME = 'ombi'
   - BUILD_VERSION_ARG = 'OMBI_RELEASE'
   - LS_USER = 'linuxserver'
@@ -18,6 +15,7 @@ repo_vars:
   - DEV_DOCKERHUB_IMAGE = 'lsiodev/ombi'
   - PR_DOCKERHUB_IMAGE = 'lspipepr/ombi'
   - DIST_IMAGE = 'ubuntu'
+  - DIST_TAG = 'bionic'
   - MULTIARCH='true'
   - CI='true'
   - CI_WEB='true'
