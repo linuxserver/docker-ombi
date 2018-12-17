@@ -2,7 +2,7 @@
 
 # jenkins variables
 project_name: docker-ombi
-external_type: external_blob
+release_type: external_blob
 release_tag: development
 ls_branch: development
 repo_vars:
