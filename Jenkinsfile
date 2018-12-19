@@ -10,7 +10,8 @@ pipeline {
   environment {
     BUILDS_DISCORD=credentials('build_webhook_url')
     GITHUB_TOKEN=credentials('498b4638-2d02-4ce5-832d-8a57d01d97ab')
-    EXT_BLOB = 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop&pr=false'
+    JSON_URL = 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/branch/develop'
+    JSON_PATH = '[.[] | .version] | .[1]'
     CONTAINER_NAME = 'ombi'
     BUILD_VERSION_ARG = 'OMBI_RELEASE'
     LS_USER = 'linuxserver'
@@ -97,19 +98,14 @@ pipeline {
     /* ########################
        External Release Tagging
        ######################## */
-    // If this is a File blob set the ext version based on the remote files md5
-    stage("Set ENV external_blob"){
+    // If this is a custom json endpoint parse the return to get external tag
+    stage("Set ENV custom_json"){
      steps{
        script{
          env.EXT_RELEASE = sh(
-           script: '''#! /bin/bash
-                      if [ $(curl -I -sL -w "%{http_code}" ${EXT_BLOB} -o /dev/null) == 200 ]; then
-                        curl -s -L ${EXT_BLOB} | md5sum | cut -c1-8
-                      else
-                        exit 1
-                      fi''',
+           script: '''curl -s ${JSON_URL} | jq -r ". | ${JSON_PATH}" ''',
            returnStdout: true).trim()
-         env.RELEASE_LINK = 'Remote_Blob_Change'
+         env.RELEASE_LINK = env.JSON_URL
        }
      }
     }
@@ -325,10 +321,12 @@ pipeline {
                 docker run --rm --entrypoint '/bin/sh' -v ${TEMPDIR}:/tmp ${LOCAL_CONTAINER} -c '\
                   apk info > packages && \
                   apk info -v > versions && \
-                  paste -d " " packages versions > /tmp/package_versions.txt'
+                  paste -d " " packages versions > /tmp/package_versions.txt && \
+                  chmod 777 /tmp/package_versions.txt'
               elif [ "${DIST_IMAGE}" == "ubuntu" ]; then
                 docker run --rm --entrypoint '/bin/sh' -v ${TEMPDIR}:/tmp ${LOCAL_CONTAINER} -c '\
-                  apt -qq list --installed | awk "{print \$1,\$2}" > /tmp/package_versions.txt'
+                  apt -qq list --installed | awk "{print \$1,\$2}" > /tmp/package_versions.txt && \
+                  chmod 777 /tmp/package_versions.txt'
               fi
               if [ "$(md5sum ${TEMPDIR}/package_versions.txt | cut -c1-8 )" != "${PACKAGE_TAG}" ]; then
                 git clone https://github.com/${LS_USER}/${LS_REPO}.git ${TEMPDIR}/${LS_REPO}
@@ -524,7 +522,7 @@ pipeline {
              "tagger": {"name": "LinuxServer Jenkins","email": "jenkins@linuxserver.io","date": "'${GITHUB_DATE}'"}}' '''
         echo "Pushing New release for Tag"
         sh '''#! /bin/bash
-              echo "External Release file changed at ${EXT_BLOB}" > releasebody.json
+              echo "Data change at JSON endpoint ${JSON_URL}" > releasebody.json
               echo '{"tag_name":"'${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}'",\
                      "target_commitish": "development",\
                      "name": "'${EXT_RELEASE}'-pkg-'${PACKAGE_TAG}'-ls'${LS_TAG_NUMBER}'",\
