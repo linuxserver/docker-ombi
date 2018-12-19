@@ -13,16 +13,17 @@ ENV HOME="/config"
 RUN \
  apt-get update && \
  apt-get install -y \
-	libcurl3 \
-	libicu55 && \
+	jq \
+	libicu60 \
+	libssl1.0 && \
  echo "**** install ombi ****" && \
  mkdir -p \
 	/opt/ombi && \
  if [ -z ${OMBI_RELEASE+x} ]; then \
-	OMBI_DURL="https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop&pr=false" \
+	OMBI_DURL="https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop&pr=false"; \
  else \
 	OMBI_JOBID=$(curl -s "https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/${OMBI_RELEASE}" | jq -jr '. | .build.jobs[0].jobId') \
-	OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux.tar.gz" \
+	OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux.tar.gz"; \
  fi && \
  curl -o \
 	/tmp/ombi-src.tar.gz -L \
