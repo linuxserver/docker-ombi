@@ -11,7 +11,7 @@ pipeline {
     BUILDS_DISCORD=credentials('build_webhook_url')
     GITHUB_TOKEN=credentials('498b4638-2d02-4ce5-832d-8a57d01d97ab')
     JSON_URL = 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/branch/develop'
-    JSON_PATH = '[.[] | .version] | .[1]'
+    JSON_PATH = '. | .build.version'
     CONTAINER_NAME = 'ombi'
     BUILD_VERSION_ARG = 'OMBI_RELEASE'
     LS_USER = 'linuxserver'

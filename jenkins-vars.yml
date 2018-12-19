@@ -8,7 +8,7 @@ release_tag: development
 ls_branch: development
 repo_vars:
   - JSON_URL = 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/branch/develop'
-  - JSON_PATH = '[.[] | .version] | .[1]'
+  - JSON_PATH = '. | .build.version'
   - CONTAINER_NAME = 'ombi'
   - BUILD_VERSION_ARG = 'OMBI_RELEASE'
   - LS_USER = 'linuxserver'
