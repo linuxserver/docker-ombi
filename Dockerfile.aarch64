@@ -16,8 +16,8 @@ ENV HOME="/config"
 RUN \
  apt-get update && \
  apt-get install -y \
-	libcurl3 \
-	libicu55 && \
+	libicu60 \
+	libssl1.0 && \
  echo "**** install ombi ****" && \
  mkdir -p \
 	/opt/ombi && \
