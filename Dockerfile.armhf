@@ -10,35 +10,34 @@ ARG OMBI_RELEASE
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="sparklyballs"
 
-# environment settings
+# environment settings
 ENV HOME="/config"
 
 RUN \
  apt-get update && \
  apt-get install -y \
-	jq \
-	libicu60 \
-	libssl1.0 && \
+        jq \
+        libicu60 \
+        libssl1.0 && \
  echo "**** install ombi ****" && \
  mkdir -p \
-	/opt/ombi && \
+        /opt/ombi && \
  if [ -z ${OMBI_RELEASE+x} ]; then \
-	OMBI_DURL="https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux-arm.tar.gz?branch=develop&pr=false"; \
- else \
-	OMBI_JOBID=$(curl -s "https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/${OMBI_RELEASE}" | jq -jr '. | .build.jobs[0].jobId') \
-	OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux-arm.tar.gz"; \
+        OMBI_RELEASE=$(curl -Ls -w %{url_effective} -o /dev/null https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop | awk -F / '{print $6}' | sed 's/-/./g'); \
  fi && \
+ OMBI_JOBID=$(curl -s "https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/${OMBI_RELEASE}" | jq -jr '. | .build.jobs[0].jobId') \
+ OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux-arm.tar.gz"; \
  curl -o \
-	/tmp/ombi-src.tar.gz -L \
-	"${OMBI_DURL}" && \
+        /tmp/ombi-src.tar.gz -L \
+        "${OMBI_DURL}" && \
  tar xzf /tmp/ombi-src.tar.gz -C \
-	/opt/ombi/ && \
+        /opt/ombi/ && \
  chmod +x /opt/ombi/Ombi && \
  echo "**** clean up ****" && \
  rm -rf \
-	/tmp/* \
-	/var/lib/apt/lists/* \
-	/var/tmp/*
+        /tmp/* \
+        /var/lib/apt/lists/* \
+        /var/tmp/*
 
 # add local files
 COPY /root /

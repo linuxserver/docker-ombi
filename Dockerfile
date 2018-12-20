@@ -20,11 +20,10 @@ RUN \
  mkdir -p \
 	/opt/ombi && \
  if [ -z ${OMBI_RELEASE+x} ]; then \
-	OMBI_DURL="https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop&pr=false"; \
- else \
-	OMBI_JOBID=$(curl -s "https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/${OMBI_RELEASE}" | jq -jr '. | .build.jobs[0].jobId') \
-	OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux.tar.gz"; \
+	OMBI_RELEASE=$(curl -Ls -w %{url_effective} -o /dev/null https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop | awk -F / '{print $6}' | sed 's/-/./g'); \
  fi && \
+ OMBI_JOBID=$(curl -s "https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/${OMBI_RELEASE}" | jq -jr '. | .build.jobs[0].jobId') \
+ OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux.tar.gz"; \
  curl -o \
 	/tmp/ombi-src.tar.gz -L \
 	"${OMBI_DURL}" && \
