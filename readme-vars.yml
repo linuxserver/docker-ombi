@@ -45,7 +45,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
-  - { date: "17.12.18:", desc: "Switch to multi-arch builds and add aarch64 image." }
+  - { date: "09.01.19:", desc: "Switch to multi-arch builds and add aarch64 image." }
   - { date: "11.03.18:", desc: "Add HOME env to Dockerfile." }
   - { date: "05.03.18:", desc: "Switch to Ombi v3 stable based on .net core." }
   - { date: "26.01.18:", desc: "Fix continuation lines." }
