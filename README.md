@@ -5,6 +5,8 @@
 [appurl]: https://ombi.io/
 [hub]: https://hub.docker.com/r/linuxserver/ombi/
 
+THIS IMAGE IS DEPRECATED. PLEASE USE THE MULTI-ARCH IMAGES AT `linuxserver/ombi`
+
 [![linuxserver.io](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_medium.png)][linuxserverurl]
 
 The [LinuxServer.io][linuxserverurl] team brings you another container release featuring easy user mapping and community support. Find us for support at:
@@ -93,6 +95,7 @@ Webui is at `<your-ip>:3579`, Follow the setup wizard on initial install.  Then 
 
 ## Versions
 
++ **09.01.19:** This image is deprecated. Please use the multi-arch images at linuxserver/ombi
 + **04.03.18:** Change ombi branch to preview
 + **27.11.17:** Ignore PR build artifacts when pulling the latest
 + **14.11.17:** Pull the release artifact from the DotNetCore branch
