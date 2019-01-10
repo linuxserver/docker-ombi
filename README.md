@@ -132,7 +132,7 @@ Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install
 
 ## Versions
 
-* **17.12.18:** - Switch to multi-arch builds and add aarch64 image.
+* **09.01.19:** - Switch to multi-arch builds and add aarch64 image.
 * **11.03.18:** - Add HOME env to Dockerfile.
 * **05.03.18:** - Switch to Ombi v3 stable based on .net core.
 * **26.01.18:** - Fix continuation lines.
