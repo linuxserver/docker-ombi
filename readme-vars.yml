@@ -12,7 +12,7 @@ Manage all your requests for Movies and TV with ease, leave notes for the user a
 
 Allow your users to post issues against their requests so you know there is a problem with the audio etc. 
 
-Even automatically sent them weekly newsletters of new content that has been added to your Plex server!"
+Even automatically send them weekly newsletters of new content that has been added to your Plex server!"
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
 
 # supported architectures
