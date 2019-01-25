@@ -65,6 +65,11 @@ docker create \
   linuxserver/ombi
 ```
 
+Using tags, you can choose between various versions of ombi. No tag is required to remain on the latest stable release.  
+Add one of the tags, if required, to the `linuxserver/ombi` line of the run/create command in the following format, `linuxserver/ombi:development`  
+The development tag will be the latest commit in the `develop` branch of ombi.  
+HOWEVER, USE THE DEVELOPMENT BRANCH AT YOUR OWN PERIL !!!!!!!!!
+
 
 ### docker-compose
 
@@ -132,6 +137,7 @@ Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install
 
 ## Versions
 
+* **25.01.19:** - Add info on tags and development builds.
 * **09.01.19:** - Switch to multi-arch builds and add aarch64 image.
 * **11.03.18:** - Add HOME env to Dockerfile.
 * **05.03.18:** - Switch to Ombi v3 stable based on .net core.
