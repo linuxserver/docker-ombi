@@ -23,7 +23,7 @@ RUN \
  mkdir -p \
         /opt/ombi && \
  if [ -z ${OMBI_RELEASE+x} ]; then \
-        OMBI_RELEASE=$(curl -Ls -w %{url_effective} -o /dev/null 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=develop&pr=false' | awk -F / '{print $6}' | sed 's/-/./g'); \
+        OMBI_RELEASE=$(curl -Ls -w %{url_effective} -o /dev/null 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux.tar.gz?branch=feature/v4&pr=false' | awk -F / '{print $6}' | sed 's/-/./g'); \
  fi && \
  OMBI_JOBID=$(curl -s "https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/${OMBI_RELEASE}" | jq -jr '. | .build.jobs[0].jobId') \
  OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux-arm.tar.gz"; \

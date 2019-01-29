@@ -3,10 +3,10 @@
 # jenkins variables
 project_name: docker-ombi
 external_type: na
-custom_version_command: curl -Ls -w %{url_effective} -o /dev/null 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux1.tar.gz?branch=develop&pr=false' | awk -F / '{print $6}' | sed 's/-/./g'
+custom_version_command: curl -Ls -w %{url_effective} -o /dev/null 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux1.tar.gz?branch=feature/v4&pr=false' | awk -F / '{print $6}' | sed 's/-/./g'
 release_type: prerelease
-release_tag: development
-ls_branch: development
+release_tag: v4-preview
+ls_branch: v4-preview
 repo_vars:
   - CONTAINER_NAME = 'ombi'
   - BUILD_VERSION_ARG = 'OMBI_RELEASE'
