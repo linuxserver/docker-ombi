@@ -21,6 +21,12 @@ available_architectures:
   - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
   - { arch: "{{ arch_armhf }}", tag: "arm32v6-latest"}
 
+# development version
+development_versions: true
+development_versions_items:
+  - { tag: "latest", desc: "Stable Ombi releases" }
+  - { tag: "development", desc: "Releases from the `develop` branch of Ombi" }
+
 # container parameters
 common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
@@ -35,13 +41,8 @@ param_env_vars:
   - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
 
 # optional parameters
-optional_block_1: true
-optional_block_1_items:
-  - |
-    Using tags, you can choose between various versions of ombi. No tag is required to remain on the latest stable release.  
-    Add one of the tags, if required, to the `linuxserver/ombi` line of the run/create command in the following format, `linuxserver/ombi:development`  
-    The development tag will be the latest commit in the `develop` branch of ombi.  
-    HOWEVER, USE THE DEVELOPMENT BRANCH AT YOUR OWN PERIL !!!!!!!!!
+optional_block_1: false
+optional_block_1_items: ""
 
 # application setup block
 app_setup_block_enabled: true
@@ -50,6 +51,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "22.02.19:", desc: "Clarify info on tags and development builds." }
   - { date: "25.01.19:", desc: "Add info on tags and development builds." }
   - { date: "09.01.19:", desc: "Switch to multi-arch builds and add aarch64 image." }
   - { date: "11.03.18:", desc: "Add HOME env to Dockerfile." }

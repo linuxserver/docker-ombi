@@ -51,6 +51,14 @@ The architectures supported by this image are:
 | arm64 | arm64v8-latest |
 | armhf | arm32v6-latest |
 
+## Version Tags
+
+This image provides various versions that are available via tags. `latest` tag usually provides the latest stable version. Others are considered under development and caution must be exercised when using them.
+
+| Tag | Description |
+| :----: | --- |
+| latest | Stable Ombi releases |
+| development | Releases from the `develop` branch of Ombi |
 
 ## Usage
 
@@ -69,11 +77,6 @@ docker create \
   --restart unless-stopped \
   linuxserver/ombi
 ```
-
-Using tags, you can choose between various versions of ombi. No tag is required to remain on the latest stable release.  
-Add one of the tags, if required, to the `linuxserver/ombi` line of the run/create command in the following format, `linuxserver/ombi:development`  
-The development tag will be the latest commit in the `develop` branch of ombi.  
-HOWEVER, USE THE DEVELOPMENT BRANCH AT YOUR OWN PERIL !!!!!!!!!
 
 
 ### docker-compose
@@ -162,6 +165,7 @@ Below are the instructions for updating containers:
 
 ## Versions
 
+* **22.02.19:** - Clarify info on tags and development builds.
 * **25.01.19:** - Add info on tags and development builds.
 * **09.01.19:** - Switch to multi-arch builds and add aarch64 image.
 * **11.03.18:** - Add HOME env to Dockerfile.
