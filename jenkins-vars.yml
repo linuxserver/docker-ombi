@@ -3,7 +3,7 @@
 # jenkins variables
 project_name: docker-ombi
 external_type: na
-custom_version_command: curl -Ls -w %{url_effective} -o /dev/null 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux1.tar.gz?branch=develop&pr=false' | awk -F / '{print $6}' | sed 's/-/./g'
+custom_version_command: curl -sL GET https://ci.appveyor.com/api/projects/tidusjar/requestplex/history?recordsNumber=100 | jq -r '. | first(.builds[] | select(.status == "success") | select(.branch =="develop")) | .version'
 release_type: prerelease
 release_tag: development
 ls_branch: development
