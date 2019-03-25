@@ -97,7 +97,7 @@ pipeline {
       steps{
         script{
           env.EXT_RELEASE = sh(
-            script: ''' curl -Ls -w %{url_effective} -o /dev/null 'https://ci.appveyor.com/api/projects/tidusjar/requestplex/artifacts/linux1.tar.gz?branch=feature/v4&pr=false' | awk -F / '{print $6}' | sed 's/-/./g' ''',
+            script: ''' curl -sL GET https://ci.appveyor.com/api/projects/tidusjar/requestplex/history?recordsNumber=100 | jq -r '. | first(.builds[] | select(.status == "success") | select(.branch =="feature/v4")) | .version' ''',
             returnStdout: true).trim()
             env.RELEASE_LINK = 'custom_command'
         }
