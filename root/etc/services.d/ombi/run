@@ -3,4 +3,4 @@
 cd /opt/ombi || exit
 
 exec \
-	s6-setuidgid abc /opt/ombi/Ombi --storage "/config" --host http://*:3579
+	s6-setuidgid abc /opt/ombi/Ombi --storage "/config" --host http://*:3579 --baseurl "${BASE_URL:-/}"
