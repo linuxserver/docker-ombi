@@ -104,6 +104,8 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
+| `-e EXTRA_PARAMS=--baseurl /ombi` | Specify some extra command-line
+parameters for Ombi |
 | `-v /config` | Contains all relevant configuration files. |
 
 ## User / Group Identifiers
