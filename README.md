@@ -65,8 +65,9 @@ docker create \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
+  -e BASE_URL=/ombi `#optional` \
   -p 3579:3579 \
-  -v </path/to/appdata/config>:/config \
+  -v /path/to/appdata/config:/config \
   --restart unless-stopped \
   linuxserver/ombi
 ```
@@ -87,8 +88,9 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+      - BASE_URL=/ombi #optional
     volumes:
-      - </path/to/appdata/config>:/config
+      - /path/to/appdata/config:/config
     ports:
       - 3579:3579
     restart: unless-stopped
@@ -104,6 +106,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
+| `-e BASE_URL=/ombi` | Subfolder can optionally be defined as an env variable for reverse proxies. Keep in mind that once this value is defined, the gui setting for base url no longer works. To use the gui setting, remove this env variable. |
 | `-v /config` | Contains all relevant configuration files. |
 
 ## User / Group Identifiers
@@ -188,6 +191,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **10.05.19:** - Added an optional env variable for base url setting.
 * **23.03.19:** - Switching to new Base images, shift to arm32v7 tag.
 * **22.02.19:** - Clarify info on tags and development builds.
 * **25.01.19:** - Add info on tags and development builds.

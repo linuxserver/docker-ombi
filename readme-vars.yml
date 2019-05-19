@@ -32,7 +32,7 @@ common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
-  - { vol_path: "/config", vol_host_path: "</path/to/appdata/config>", desc: "Contains all relevant configuration files." }
+  - { vol_path: "/config", vol_host_path: "/path/to/appdata/config", desc: "Contains all relevant configuration files." }
 param_usage_include_ports: true
 param_ports:
   - { external_port: "3579", internal_port: "3579", port_desc: "web gui" }
@@ -40,7 +40,11 @@ param_usage_include_env: true
 param_env_vars:
   - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
 
-# optional parameters
+# optional container parameters
+opt_param_usage_include_env: true
+opt_param_env_vars:
+  - { env_var: "BASE_URL", env_value: "/ombi", desc: "Subfolder can optionally be defined as an env variable for reverse proxies. Keep in mind that once this value is defined, the gui setting for base url no longer works. To use the gui setting, remove this env variable." }
+
 optional_block_1: false
 optional_block_1_items: ""
 
@@ -51,6 +55,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "10.05.19:", desc: "Added an optional env variable for base url setting." }
   - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
   - { date: "22.02.19:", desc: "Clarify info on tags and development builds." }
   - { date: "25.01.19:", desc: "Add info on tags and development builds." }
