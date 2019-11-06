@@ -1,7 +1,7 @@
 adduser3.116ubuntu1
 apt1.6.12
 apt-utils1.6.12
-base-files10.1ubuntu2.6
+base-files10.1ubuntu2.7
 base-passwd3.5.44
 bash4.4.18-2ubuntu1.2
 bsdutils1:2.31.1-0.4ubuntu3.4
@@ -57,7 +57,7 @@ libheimntlm0-heimdal7.5.0+dfsg-1
 libhogweed43.4-1
 libhx509-5-heimdal7.5.0+dfsg-1
 libicu6060.2-3ubuntu3
-libidn2-02.0.4-1.1build2
+libidn2-02.0.4-1.1ubuntu0.2
 libjq11.5+dfsg-2
 libk5crypto31.16-2ubuntu0.1
 libkeyutils11.5.9-9.2ubuntu2
@@ -99,10 +99,10 @@ libssl1.0.01.0.2n-1ubuntu5.3
 libssl1.0-dev1.0.2n-1ubuntu5.3
 libssl1.11.1.1-1ubuntu2.1~18.04.4
 libstdc++68.3.0-6ubuntu1~18.04.1
-libsystemd0237-3ubuntu10.29
+libsystemd0237-3ubuntu10.31
 libtasn1-64.13-2
 libtinfo56.1-1ubuntu1.18.04
-libudev1237-3ubuntu10.29
+libudev1237-3ubuntu10.31
 libunistring20.9.9-0ubuntu2
 libuuid12.31.1-0.4ubuntu3.4
 libwind0-heimdal7.5.0+dfsg-1
@@ -123,7 +123,7 @@ sed4.4-2
 sensible-utils0.0.12
 sysvinit-utils2.88dsf-59.10ubuntu1
 tar1.29b-2ubuntu0.1
-tzdata2019b-0ubuntu0.18.04
+tzdata2019c-0ubuntu0.18.04
 ubuntu-keyring2018.09.18.1~18.04.0
 util-linux2.31.1-0.4ubuntu3.4
 zlib1g1:1.2.11.dfsg-0ubuntu2
