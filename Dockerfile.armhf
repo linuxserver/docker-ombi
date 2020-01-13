@@ -5,7 +5,7 @@ ARG BUILD_DATE
 ARG VERSION
 ARG OMBI_RELEASE
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="sparklyballs"
+LABEL maintainer="aptalca"
 
 # environment settings
 ENV HOME="/config"
@@ -13,28 +13,32 @@ ENV HOME="/config"
 RUN \
  apt-get update && \
  apt-get install -y \
-        jq \
-        libicu60 \
-        libssl1.0 && \
+	jq \
+	libicu60 \
+	libssl1.0 \
+	unzip && \
  echo "**** install ombi ****" && \
  mkdir -p \
-        /opt/ombi && \
+	/opt/ombi && \
  if [ -z ${OMBI_RELEASE+x} ]; then \
-        OMBI_RELEASE=$(curl -sL GET https://ci.appveyor.com/api/projects/tidusjar/requestplex/history?recordsNumber=100 | jq -r '. | first(.builds[] | select(.status == "success") | select(.branch =="feature/v4") | select(.pullRequestId == null)) | .version'); \
+	OMBI_RELEASE=$(curl -sX GET "https://api.github.com/repos/tidusjar/Ombi.Releases/releases" \
+	| jq -r '.[0] | .tag_name'); \
  fi && \
- OMBI_JOBID=$(curl -s "https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/${OMBI_RELEASE}" | jq -jr '. | .build.jobs[0].jobId') \
- OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux-arm.tar.gz"; \
+ OMBI_DURL=$(curl -s https://api.github.com/repos/tidusjar/Ombi.Releases/releases/tags/"${OMBI_RELEASE}" \
+	|jq -r '.assets[].browser_download_url' |grep 'linux-arm-') && \
  curl -o \
-        /tmp/ombi-src.tar.gz -L \
-        "${OMBI_DURL}" && \
+	/tmp/ombi-src.tar.gz -L \
+	"${OMBI_DURL}" && \
  tar xzf /tmp/ombi-src.tar.gz -C \
-        /opt/ombi/ && \
+	/tmp/ && \
+ unzip /tmp/linux-arm/Ombi.zip \
+	-d /opt/ombi/ && \
  chmod +x /opt/ombi/Ombi && \
  echo "**** clean up ****" && \
  rm -rf \
-        /tmp/* \
-        /var/lib/apt/lists/* \
-        /var/tmp/*
+	/tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
 
 # add local files
 COPY /root /
