@@ -15,8 +15,7 @@ RUN \
  apt-get install -y \
 	jq \
 	libicu60 \
-	libssl1.0 \
-	unzip && \
+	libssl1.0 && \
  echo "**** install ombi ****" && \
  mkdir -p \
 	/opt/ombi && \
@@ -27,12 +26,10 @@ RUN \
  OMBI_DURL=$(curl -s https://api.github.com/repos/tidusjar/Ombi.Releases/releases/tags/"${OMBI_RELEASE}" \
 	|jq -r '.assets[].browser_download_url' |grep 'linux-x64-') && \
  curl -o \
-	/tmp/ombi-src.tar.gz -L \
+	/tmp/ombi.tar.gz -L \
 	"${OMBI_DURL}" && \
- tar xzf /tmp/ombi-src.tar.gz -C \
-	/tmp/ && \
- unzip /tmp/linux-64/Ombi.zip \
-	-d /opt/ombi/ && \
+ tar xzf /tmp/ombi.tar.gz -C \
+	/opt/ombi && \
  chmod +x /opt/ombi/Ombi && \
  echo "**** clean up ****" && \
  rm -rf \
