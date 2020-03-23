@@ -24,7 +24,7 @@ RUN \
 	| jq -r '.[0] | .tag_name'); \
  fi && \
  OMBI_DURL=$(curl -s https://api.github.com/repos/tidusjar/Ombi.Releases/releases/tags/"${OMBI_RELEASE}" \
-	|jq -r '.assets[].browser_download_url' |grep 'linux-arm64-') && \
+	|jq -r '.assets[].browser_download_url' |grep 'linux-arm64') && \
  curl -o \
 	/tmp/ombi.tar.gz -L \
 	"${OMBI_DURL}" && \
