@@ -50,6 +50,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "14.04.20:", desc: "Add donation links for Ombi." }
   - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
   - { date: "25.01.19:", desc: "Add info on tags and development builds." }
   - { date: "17.12.18:", desc: "Switch to multi-arch builds and add aarch64 image." }
