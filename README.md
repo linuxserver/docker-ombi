@@ -219,6 +219,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **14.04.20:** - Add donation links for Ombi.
 * **23.03.19:** - Switching to new Base images, shift to arm32v7 tag.
 * **25.01.19:** - Add info on tags and development builds.
 * **17.12.18:** - Switch to multi-arch builds and add aarch64 image.
