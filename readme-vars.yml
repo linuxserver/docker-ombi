@@ -47,6 +47,7 @@ app_setup_block: |
   Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install.  Then configure the required services.
 # changelog
 changelogs:
+  - { date: "14.04.20:", desc: "Add Ombi donation links." }
   - { date: "13.01.20:", desc: "Ingest the preview assets from a github release repo." }
   - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
   - { date: "22.02.19:", desc: "Clarify info on tags and development builds." }
