@@ -55,6 +55,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "14.04.20:", desc: "Add Ombi donate links." }
   - { date: "10.05.19:", desc: "Added an optional env variable for base url setting." }
   - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
   - { date: "22.02.19:", desc: "Clarify info on tags and development builds." }
