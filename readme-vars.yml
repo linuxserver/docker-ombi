@@ -30,6 +30,7 @@ param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
   - { vol_path: "/config", vol_host_path: "</path/to/appdata/config>", desc: "Contains all relevant configuration files." }
+  - { vol_path: "/opt/ombi/Logs", vol_host_path: "</path/to/appdata/config/Logs>", desc: "Contains all log files, necessary in version 4." }
 param_usage_include_ports: true
 param_ports:
   - { external_port: "3579", internal_port: "3579", port_desc: "web gui" }

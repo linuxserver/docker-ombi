@@ -77,6 +77,7 @@ docker create \
   -e TZ=Europe/London \
   -p 3579:3579 \
   -v </path/to/appdata/config>:/config \
+  -v </path/to/appdata/config/Logs>:/opt/ombi/Logs \
   --restart unless-stopped \
   linuxserver/ombi
 ```
@@ -99,6 +100,7 @@ services:
       - TZ=Europe/London
     volumes:
       - </path/to/appdata/config>:/config
+      - </path/to/appdata/config/Logs>:/opt/ombi/Logs
     ports:
       - 3579:3579
     restart: unless-stopped
@@ -115,6 +117,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
 | `-v /config` | Contains all relevant configuration files. |
+| `-v /opt/ombi/Logs` | Contains all log files, necessary in version 4. |
 
 ## Environment variables from files (Docker secrets)
 
