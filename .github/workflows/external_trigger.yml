@@ -17,25 +17,6 @@ jobs:
             exit 0
           fi
           echo "External trigger running off of development branch. To disable this trigger, set a Github secret named \"PAUSE_EXTERNAL_TRIGGER_OMBI_DEVELOPMENT\"."
-          echo "Setting env vars"
-          CONTAINER_NAME='ombi'
-          BUILD_VERSION_ARG='OMBI_RELEASE'
-          LS_USER='linuxserver'
-          LS_REPO='docker-ombi'
-          DOCKERHUB_IMAGE='linuxserver/ombi'
-          DEV_DOCKERHUB_IMAGE='lsiodev/ombi'
-          PR_DOCKERHUB_IMAGE='lspipepr/ombi'
-          DIST_IMAGE='ubuntu'
-          DIST_TAG='bionic'
-          MULTIARCH='true'
-          CI='true'
-          CI_WEB='true'
-          CI_PORT='3579'
-          CI_SSL='false'
-          CI_DELAY='120'
-          CI_DOCKERENV='TZ=US/Pacific'
-          CI_AUTH='user:password'
-          CI_WEBPATH=''
           echo "Retrieving external version"
           EXT_RELEASE=$(curl -sL GET https://ci.appveyor.com/api/projects/tidusjar/requestplex/history?recordsNumber=100 | jq -r '. | first(.builds[] | select(.status == "success") | select(.branch == "develop") | select(.pullRequestId == null)) | .version')
           if [ -z "${EXT_RELEASE}" ]; then
@@ -48,19 +29,24 @@ jobs:
           fi
           echo "External version: ${EXT_RELEASE}"
           echo "Retrieving last pushed version"
-          image="${LS_USER}/ombi"
+          image="linuxserver/ombi"
           tag="development"
-          token=$(curl -s \
-            "https://auth.docker.io/token?scope=repository:${image}:pull&service=registry.docker.io" \
+          token=$(curl -sX GET \
+            "https://ghcr.io/token?scope=repository%3Alinuxserver%2Fombi%3Apull" \
             | jq -r '.token')
-          digest=$(curl -s \
-            --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
-            --header "Authorization: Bearer ${token}" \
-            "https://registry-1.docker.io/v2/${image}/manifests/${tag}" \
-            | jq -r '.config.digest')
+            multidigest=$(curl -s \
+              --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+              --header "Authorization: Bearer ${token}" \
+              "https://ghcr.io/v2/${image}/manifests/${tag}" \
+              | jq -r 'first(.manifests[].digest)')
+            digest=$(curl -s \
+              --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+              --header "Authorization: Bearer ${token}" \
+              "https://ghcr.io/v2/${image}/manifests/${multidigest}" \
+              | jq -r '.config.digest')
           image_info=$(curl -sL \
             --header "Authorization: Bearer ${token}" \
-            "https://registry-1.docker.io/v2/${image}/blobs/${digest}" \
+            "https://ghcr.io/v2/${image}/blobs/${digest}" \
             | jq -r '.container_config')
           IMAGE_RELEASE=$(echo ${image_info} | jq -r '.Labels.build_version' | awk '{print $3}')
           IMAGE_VERSION=$(echo ${IMAGE_RELEASE} | awk -F'-ls' '{print $1}')
