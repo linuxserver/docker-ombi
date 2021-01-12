@@ -20,10 +20,10 @@ RUN \
  mkdir -p \
 	/opt/ombi && \
  if [ -z ${OMBI_RELEASE+x} ]; then \
-	OMBI_RELEASE=$(curl -sX GET "https://api.github.com/repos/Ombi-io/Ombi.Releases/releases" \
+	OMBI_RELEASE=$(curl -sX GET "https://api.github.com/repos/Ombi-app/Ombi.Releases/releases" \
 	| jq -r '.[0] | .tag_name'); \
  fi && \
- OMBI_DURL=$(curl -s https://api.github.com/repos/Ombi-io/Ombi.Releases/releases/tags/"${OMBI_RELEASE}" \
+ OMBI_DURL=$(curl -s https://api.github.com/repos/Ombi-app/Ombi.Releases/releases/tags/"${OMBI_RELEASE}" \
 	|jq -r '.assets[].browser_download_url' |grep 'linux-x64') && \
  curl -o \
 	/tmp/ombi.tar.gz -L \

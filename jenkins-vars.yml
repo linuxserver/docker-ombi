@@ -1,5 +1,4 @@
 ---
-
 # jenkins variables
 project_name: docker-ombi
 external_type: github_devel
@@ -8,7 +7,7 @@ release_tag: v4-preview
 ls_branch: v4-preview
 repo_vars:
   - EXT_GIT_BRANCH = 'master'
-  - EXT_USER = 'Ombi-io'
+  - EXT_USER = 'Ombi-app'
   - EXT_REPO = 'Ombi.Releases'
   - CONTAINER_NAME = 'ombi'
   - BUILD_VERSION_ARG = 'OMBI_RELEASE'
