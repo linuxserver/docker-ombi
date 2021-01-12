@@ -17,7 +17,7 @@ pipeline {
     GITLAB_TOKEN=credentials('b6f0f1dd-6952-4cf6-95d1-9c06380283f0')
     GITLAB_NAMESPACE=credentials('gitlab-namespace-id')
     EXT_GIT_BRANCH = 'master'
-    EXT_USER = 'tidusjar'
+    EXT_USER = 'Ombi-io'
     EXT_REPO = 'Ombi.Releases'
     CONTAINER_NAME = 'ombi'
     BUILD_VERSION_ARG = 'OMBI_RELEASE'

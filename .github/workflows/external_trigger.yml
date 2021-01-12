@@ -18,7 +18,7 @@ jobs:
           fi
           echo "**** External trigger running off of v4-preview branch. To disable this trigger, set a Github secret named \"PAUSE_EXTERNAL_TRIGGER_OMBI_V4_PREVIEW\". ****"
           echo "**** Retrieving external version ****"
-          EXT_RELEASE=$(curl -u "${{ secrets.CR_USER }}:${{ secrets.CR_PAT }}" -sX GET "https://api.github.com/repos/tidusjar/Ombi.Releases/releases" | jq -r '.[0] | .tag_name')
+          EXT_RELEASE=$(curl -u "${{ secrets.CR_USER }}:${{ secrets.CR_PAT }}" -sX GET "https://api.github.com/repos/Ombi-io/Ombi.Releases/releases" | jq -r '.[0] | .tag_name')
           if [ -z "${EXT_RELEASE}" ] || [ "${EXT_RELEASE}" == "null" ]; then
             echo "**** Can't retrieve external version, exiting ****"
             FAILURE_REASON="Can't retrieve external version for ombi branch v4-preview"
