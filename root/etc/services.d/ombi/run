@@ -6,5 +6,7 @@ if [[ ! -z "${BASE_URL}" ]]; then
     EXTRA_PARAM="--baseurl ${BASE_URL}"
 fi
 
+OMBI_PORT="${OMBI_PORT:=3579}" # Default to port 3579 if not set by user
+
 exec \
 	s6-setuidgid abc /opt/ombi/Ombi --storage "/config" --host http://*:${OMBI_PORT} ${EXTRA_PARAM}
