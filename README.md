@@ -236,6 +236,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **16.01.21:** - Added an optional env variable for internal port setting.
 * **14.04.20:** - Add Ombi donate links.
 * **10.05.19:** - Added an optional env variable for base url setting.
 * **23.03.19:** - Switching to new Base images, shift to arm32v7 tag.
