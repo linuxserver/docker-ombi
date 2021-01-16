@@ -7,4 +7,4 @@ if [[ ! -z "${BASE_URL}" ]]; then
 fi
 
 exec \
-	s6-setuidgid abc /opt/ombi/Ombi --storage "/config" --host http://*:3579 ${EXTRA_PARAM}
+	s6-setuidgid abc /opt/ombi/Ombi --storage "/config" --host http://*:${OMBI_PORT} ${EXTRA_PARAM}
