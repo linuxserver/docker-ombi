@@ -1,0 +1,21 @@
+#!/usr/bin/with-contenv bash
+
+echo '
+********************************************************
+********************************************************
+*                                                      *
+*                                                      *
+*      This image tag v4-preview has been deprecated   *
+*                                                      *
+*            Use the tag "development" at              *
+*                                                      *
+*          ghcr.io/linuxserver/ombi:development        *
+*                                                      *
+*       https://hub.docker.com/r/linuxserver/ombi      *
+*                                                      *
+*       https://github.com/linuxserver/docker-ombi     *
+*                                                      *
+*                                                      *
+*                                                      *
+********************************************************
+********************************************************'
