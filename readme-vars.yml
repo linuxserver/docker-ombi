@@ -47,6 +47,7 @@ app_setup_block: |
   Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install.  Then configure the required services.
 # changelog
 changelogs:
+  - { date: "18.01.21:", desc: "Deprecate `v4-preview` tag as it has been merged into the `development` tag." }
   - { date: "12.01.21:", desc: "Update release repo." }
   - { date: "14.04.20:", desc: "Add Ombi donation links." }
   - { date: "13.01.20:", desc: "Ingest the preview assets from a github release repo." }

@@ -227,6 +227,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **18.01.21:** - Deprecate `v4-preview` tag as it has been merged into the `development` tag.
 * **12.01.21:** - Update release repo.
 * **14.04.20:** - Add Ombi donation links.
 * **13.01.20:** - Ingest the preview assets from a github release repo.
