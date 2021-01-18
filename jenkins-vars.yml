@@ -8,7 +8,7 @@ release_tag: latest
 ls_branch: master
 repo_vars:
   - EXT_GIT_BRANCH = 'master'
-  - EXT_USER = 'tidusjar'
+  - EXT_USER = 'Ombi-app'
   - EXT_REPO = 'Ombi'
   - CONTAINER_NAME = 'ombi'
   - BUILD_VERSION_ARG = 'OMBI_RELEASE'
