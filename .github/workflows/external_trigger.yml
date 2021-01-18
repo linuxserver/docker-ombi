@@ -18,7 +18,7 @@ jobs:
           fi
           echo "**** External trigger running off of development branch. To disable this trigger, set a Github secret named \"PAUSE_EXTERNAL_TRIGGER_OMBI_DEVELOPMENT\". ****"
           echo "**** Retrieving external version ****"
-          EXT_RELEASE=$(curl -sL GET https://ci.appveyor.com/api/projects/tidusjar/requestplex/history?recordsNumber=100 | jq -r '. | first(.builds[] | select(.status == "success") | select(.branch == "develop") | select(.pullRequestId == null)) | .version')
+          EXT_RELEASE=$(curl -u "${{ secrets.CR_USER }}:${{ secrets.CR_PAT }}" -sX GET "https://api.github.com/repos/Ombi-app/ombi/releases" | jq -r ". | first(.[] | select(.prerelease == true)) | .tag_name")
           if [ -z "${EXT_RELEASE}" ] || [ "${EXT_RELEASE}" == "null" ]; then
             echo "**** Can't retrieve external version, exiting ****"
             FAILURE_REASON="Can't retrieve external version for ombi branch development"

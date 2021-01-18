@@ -60,6 +60,14 @@ The architectures supported by this image are:
 | arm64 | arm64v8-latest |
 | armhf | arm32v7-latest |
 
+## Version Tags
+
+This image provides various versions that are available via tags. `latest` tag usually provides the latest stable version. Others are considered under development and caution must be exercised when using them.
+
+| Tag | Description |
+| :----: | --- |
+| latest | Stable Ombi releases |
+| development | Releases from the `develop` branch of Ombi |
 
 ## Usage
 
@@ -81,7 +89,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - </path/to/appdata/config>:/config
+      - /path/to/appdata/config:/config
     ports:
       - 3579:3579
     restart: unless-stopped
@@ -96,7 +104,7 @@ docker run -d \
   -e PGID=1000 \
   -e TZ=Europe/London \
   -p 3579:3579 \
-  -v </path/to/appdata/config>:/config \
+  -v /path/to/appdata/config:/config \
   --restart unless-stopped \
   ghcr.io/linuxserver/ombi
 ```
@@ -227,6 +235,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **18.01.21:** - Update upstream repo. Deprecate `v4-preview` tag, `develop` is now the tag for v4.
 * **14.04.20:** - Add donation links for Ombi.
 * **23.03.19:** - Switching to new Base images, shift to arm32v7 tag.
 * **25.01.19:** - Add info on tags and development builds.

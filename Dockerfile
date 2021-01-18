@@ -20,15 +20,16 @@ RUN \
  mkdir -p \
 	/opt/ombi && \
  if [ -z ${OMBI_RELEASE+x} ]; then \
-	OMBI_RELEASE=$(curl -sL GET https://ci.appveyor.com/api/projects/tidusjar/requestplex/history?recordsNumber=100 | jq -r '. | first(.builds[] | select(.status == "success") | select(.branch == "develop") | select(.pullRequestId == null)) | .version'); \
+	OMBI_RELEASE=$(curl -sX GET "https://api.github.com/repos/Ombi-app/Ombi/releases" \
+	| jq -r 'first(.[] | select(.prerelease == true)) | .tag_name'); \
  fi && \
- OMBI_JOBID=$(curl -s "https://ci.appveyor.com/api/projects/tidusjar/requestplex/build/${OMBI_RELEASE}" | jq -jr '. | .build.jobs[0].jobId') \
- OMBI_DURL="https://ci.appveyor.com/api/buildjobs/${OMBI_JOBID}/artifacts/linux.tar.gz"; \
+ OMBI_DURL=$(curl -s https://api.github.com/repos/Ombi-app/Ombi/releases/tags/"${OMBI_RELEASE}" \
+	|jq -r '.assets[].browser_download_url' |grep 'linux-x64') && \
  curl -o \
-	/tmp/ombi-src.tar.gz -L \
+	/tmp/ombi.tar.gz -L \
 	"${OMBI_DURL}" && \
- tar xzf /tmp/ombi-src.tar.gz -C \
-	/opt/ombi/ && \
+ tar xzf /tmp/ombi.tar.gz -C \
+	/opt/ombi && \
  chmod +x /opt/ombi/Ombi && \
  echo "**** clean up ****" && \
  rm -rf \
