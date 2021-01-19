@@ -21,12 +21,18 @@ available_architectures:
   - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
   - { arch: "{{ arch_armhf }}", tag: "arm32v7-latest"}
 
+# development version
+development_versions: true
+development_versions_items:
+  - { tag: "latest", desc: "Stable Ombi releases" }
+  - { tag: "development", desc: "Releases from the `develop` branch of Ombi" }
+
 # container parameters
 common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
-  - { vol_path: "/config", vol_host_path: "</path/to/appdata/config>", desc: "Contains all relevant configuration files." }
+  - { vol_path: "/config", vol_host_path: "/path/to/appdata/config", desc: "Contains all relevant configuration files." }
 param_usage_include_ports: true
 param_ports:
   - { external_port: "3579", internal_port: "3579", port_desc: "web gui" }
@@ -50,6 +56,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "18.01.21:", desc: "Update upstream repo. Deprecate `v4-preview` tag, `develop` is now the tag for v4." }
   - { date: "14.04.20:", desc: "Add donation links for Ombi." }
   - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
   - { date: "25.01.19:", desc: "Add info on tags and development builds." }
