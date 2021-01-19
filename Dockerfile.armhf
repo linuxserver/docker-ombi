@@ -23,8 +23,7 @@ RUN \
 	OMBI_RELEASE=$(curl -sX GET "https://api.github.com/repos/Ombi-app/Ombi/releases" \
 	| jq -r 'first(.[] | select(.prerelease == true)) | .tag_name'); \
  fi && \
- OMBI_DURL=$(curl -s https://api.github.com/repos/Ombi-app/Ombi/releases/tags/"${OMBI_RELEASE}" \
-	|jq -r '.assets[].browser_download_url' |grep 'linux-arm.tar.gz') && \
+ OMBI_DURL="https://github.com/Ombi-app/Ombi/releases/download/${OMBI_RELEASE}/linux-arm.tar.gz" && \
  curl -o \
 	/tmp/ombi.tar.gz -L \
 	"${OMBI_DURL}" && \
