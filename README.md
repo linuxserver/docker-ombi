@@ -44,6 +44,7 @@ If you are sharing your Plex server with other users, allow them to request new 
 Manage all your requests for Movies and TV with ease, leave notes for the user and get notification when a user requests something.
 Allow your users to post issues against their requests so you know there is a problem with the audio etc.
 Even automatically sent them weekly newsletters of new content that has been added to your Plex server!
+
 [![ombi](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/ombi.png)](https://ombi.io)
 
 ## Supported Architectures
