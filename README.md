@@ -33,7 +33,6 @@ Find us at:
 [![GitHub Release](https://img.shields.io/github/release/linuxserver/docker-ombi.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/linuxserver/docker-ombi/releases)
 [![GitHub Package Repository](https://img.shields.io/static/v1.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=linuxserver.io&message=GitHub%20Package&logo=github)](https://github.com/linuxserver/docker-ombi/packages)
 [![GitLab Container Registry](https://img.shields.io/static/v1.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=linuxserver.io&message=GitLab%20Registry&logo=gitlab)](https://gitlab.com/linuxserver.io/docker-ombi/container_registry)
-[![MicroBadger Layers](https://img.shields.io/microbadger/layers/linuxserver/ombi.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge)](https://microbadger.com/images/linuxserver/ombi "Get your own version badge on microbadger.com")
 [![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/ombi.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/r/linuxserver/ombi)
 [![Docker Stars](https://img.shields.io/docker/stars/linuxserver/ombi.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=stars&logo=docker)](https://hub.docker.com/r/linuxserver/ombi)
 [![Jenkins Build](https://img.shields.io/jenkins/build?labelColor=555555&logoColor=ffffff&style=for-the-badge&jobUrl=https%3A%2F%2Fci.linuxserver.io%2Fjob%2FDocker-Pipeline-Builders%2Fjob%2Fdocker-ombi%2Fjob%2Fmaster%2F&logo=jenkins)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-ombi/job/master/)
@@ -78,9 +77,7 @@ Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install
 
 Here are some example snippets to help you get started creating a container.
 
-### docker-compose ([recommended](https://docs.linuxserver.io/general/docker-compose))
-
-Compatible with docker-compose v2 schemas.
+### docker-compose (recommended, [click here for more info](https://docs.linuxserver.io/general/docker-compose))
 
 ```yaml
 ---
@@ -101,7 +98,7 @@ services:
     restart: unless-stopped
 ```
 
-### docker cli
+### docker cli ([click here for more info](https://docs.docker.com/engine/reference/commandline/cli/))
 
 ```bash
 docker run -d \
