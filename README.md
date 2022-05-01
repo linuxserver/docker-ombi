@@ -50,26 +50,26 @@ Even automatically sent them weekly newsletters of new content that has been add
 
 ## Supported Architectures
 
-Our images support multiple architectures such as `x86-64`, `arm64` and `armhf`. We utilise the docker manifest for multi-platform awareness. More information is available from docker [here](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list) and our announcement [here](https://blog.linuxserver.io/2019/02/21/the-lsio-pipeline-project/).
+We utilise the docker manifest for multi-platform awareness. More information is available from docker [here](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list) and our announcement [here](https://blog.linuxserver.io/2019/02/21/the-lsio-pipeline-project/).
 
-Simply pulling `lscr.io/linuxserver/ombi` should retrieve the correct image for your arch, but you can also pull specific arch images via tags.
+Simply pulling `lscr.io/linuxserver/ombi:development` should retrieve the correct image for your arch, but you can also pull specific arch images via tags.
 
 The architectures supported by this image are:
 
-| Architecture | Tag |
-| :----: | --- |
-| x86-64 | amd64-latest |
-| arm64 | arm64v8-latest |
-| armhf | arm32v7-latest |
+| Architecture | Available | Tag |
+| :----: | :----: | ---- |
+| x86-64 | ✅ | amd64-\<version tag\> |
+| arm64 | ✅ | arm64v8-\<version tag\> |
+| armhf| ✅ | arm32v7-\<version tag\> |
 
 ## Version Tags
 
-This image provides various versions that are available via tags. `latest` tag usually provides the latest stable version. Others are considered under development and caution must be exercised when using them.
+This image provides various versions that are available via tags. Please read the descriptions carefully and exercise caution when using unstable or development tags.
 
-| Tag | Description |
-| :----: | --- |
-| latest | Stable Ombi releases |
-| development | Releases from the `develop` branch of Ombi |
+| Tag | Available | Description |
+| :----: | :----: |--- |
+| latest | ✅ | Stable Ombi releases |
+| development | ✅ | Releases from the `develop` branch of Ombi |
 
 ## Application Setup
 
@@ -86,7 +86,7 @@ Here are some example snippets to help you get started creating a container.
 version: "2.1"
 services:
   ombi:
-    image: lscr.io/linuxserver/ombi
+    image: lscr.io/linuxserver/ombi:development
     container_name: ombi
     environment:
       - PUID=1000
@@ -110,7 +110,7 @@ docker run -d \
   -p 3579:3579 \
   -v /path/to/appdata/config:/config \
   --restart unless-stopped \
-  lscr.io/linuxserver/ombi
+  lscr.io/linuxserver/ombi:development
 ```
 
 Using tags, you can choose between various versions of ombi. No tag is required to remain on the latest stable release.  
@@ -173,7 +173,7 @@ We publish various [Docker Mods](https://github.com/linuxserver/docker-mods) to 
 * container version number
   * `docker inspect -f '{{ index .Config.Labels "build_version" }}' ombi`
 * image version number
-  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' lscr.io/linuxserver/ombi`
+  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' lscr.io/linuxserver/ombi:development`
 
 ## Updating Info
 
@@ -191,7 +191,7 @@ Below are the instructions for updating containers:
 
 ### Via Docker Run
 
-* Update the image: `docker pull lscr.io/linuxserver/ombi`
+* Update the image: `docker pull lscr.io/linuxserver/ombi:development`
 * Stop the running container: `docker stop ombi`
 * Delete the container: `docker rm ombi`
 * Recreate a new container with the same docker run parameters as instructed above (if mapped correctly to a host folder, your `/config` folder and settings will be preserved)
@@ -226,7 +226,7 @@ cd docker-ombi
 docker build \
   --no-cache \
   --pull \
-  -t lscr.io/linuxserver/ombi:latest .
+  -t lscr.io/linuxserver/ombi:development .
 ```
 
 The ARM variants can be built on x86_64 hardware using `multiarch/qemu-user-static`
@@ -239,6 +239,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **01.05.22:** - Rebase to Jammy.
 * **18.01.21:** - Update upstream repo. Deprecate `v4-preview` tag, `develop` is now the tag for v4.
 * **14.04.20:** - Add donation links for Ombi.
 * **23.03.19:** - Switching to new Base images, shift to arm32v7 tag.
