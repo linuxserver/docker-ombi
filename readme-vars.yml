@@ -5,14 +5,14 @@ project_name: ombi
 project_url: "https://ombi.io"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/ombi.png"
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) allows you to host your own Plex Request and user management system.
- 
-If you are sharing your Plex server with other users, allow them to request new content using an easy to manage interface! 
 
-Manage all your requests for Movies and TV with ease, leave notes for the user and get notification when a user requests something. 
+  If you are sharing your Plex server with other users, allow them to request new content using an easy to manage interface! 
 
-Allow your users to post issues against their requests so you know there is a problem with the audio etc. 
+  Manage all your requests for Movies and TV with ease, leave notes for the user and get notification when a user requests something. 
 
-Even automatically sent them weekly newsletters of new content that has been added to your Plex server!"
+  Allow your users to post issues against their requests so you know there is a problem with the audio etc. 
+
+  Even automatically sent them weekly newsletters of new content that has been added to your Plex server!"
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
 
 # supported architectures
@@ -56,6 +56,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "01.05.22:", desc: "Rebase to Jammy." }
   - { date: "18.01.21:", desc: "Update upstream repo. Deprecate `v4-preview` tag, `develop` is now the tag for v4." }
   - { date: "14.04.20:", desc: "Add donation links for Ombi." }
   - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
