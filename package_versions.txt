@@ -1,7 +1,7 @@
 adduser3.118ubuntu5
 apt2.4.5
 apt-utils2.4.5
-base-files12ubuntu4
+base-files12ubuntu4.1
 base-passwd3.5.52build1
 bash5.1-6ubuntu1
 bsdutils1:2.37.2-4ubuntu3
@@ -99,14 +99,14 @@ libsmartcols12.37.2-4ubuntu3
 libsqlite3-03.37.2-2
 libss21.46.5-2ubuntu1
 libssh-40.9.6-2build1
-libssl33.0.2-0ubuntu1
+libssl33.0.2-0ubuntu1.1
 libstdc++612-20220319-1ubuntu1
-libsystemd0249.11-0ubuntu3
+libsystemd0249.11-0ubuntu3.1
 libtasn1-64.18.0-4build1
 libtinfo66.3-2
 libtirpc31.3.2-2build1
 libtirpc-common1.3.2-2build1
-libudev1249.11-0ubuntu3
+libudev1249.11-0ubuntu3.1
 libunistring21.0-1
 libuuid12.37.2-4ubuntu3
 libxxhash00.8.1-1
@@ -119,7 +119,7 @@ mawk1.3.4.20200120-3
 mount2.37.2-4ubuntu3
 ncurses-base6.3-2
 ncurses-bin6.3-2
-openssl3.0.2-0ubuntu1
+openssl3.0.2-0ubuntu1.1
 passwd1:4.8.1-2ubuntu2
 perl-base5.34.0-3ubuntu1
 pinentry-curses1.1.1-1build2
