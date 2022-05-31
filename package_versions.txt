@@ -13,7 +13,7 @@ debconf1.5.79ubuntu1
 debianutils5.5-1ubuntu2
 diffutils1:3.8-0ubuntu2
 dirmngr2.2.27-3ubuntu2
-dpkg1.21.1ubuntu2
+dpkg1.21.1ubuntu2.1
 e2fsprogs1.46.5-2ubuntu1
 findutils4.8.0-1ubuntu3
 gcc-12-base12-20220319-1ubuntu1
