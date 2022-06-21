@@ -122,7 +122,7 @@ mawk1.3.4.20200120-3
 mount2.37.2-4ubuntu3
 ncurses-base6.3-2
 ncurses-bin6.3-2
-openssl3.0.2-0ubuntu1.2
+openssl3.0.2-0ubuntu1.4
 passwd1:4.8.1-2ubuntu2
 perl-base5.34.0-3ubuntu1
 pinentry-curses1.1.1-1build2
