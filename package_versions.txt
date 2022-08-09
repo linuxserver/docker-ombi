@@ -1,7 +1,7 @@
 adduser3.118ubuntu5
 apt2.4.6
 apt-utils2.4.6
-base-files12ubuntu4.1
+base-files12ubuntu4.2
 base-passwd3.5.52build1
 bash5.1-6ubuntu1
 bsdutils1:2.37.2-4ubuntu3
@@ -40,10 +40,10 @@ libaudit-common1:3.0.7-1build1
 libblkid12.37.2-4ubuntu3
 libbrotli11.0.9-2build6
 libbz2-1.01.0.8-5build1
-libc62.35-0ubuntu3
+libc62.35-0ubuntu3.1
 libcap21:2.44-1build3
 libcap-ng00.7.9-2.2build3
-libc-bin2.35-0ubuntu3
+libc-bin2.35-0ubuntu3.1
 libcom-err21.46.5-2ubuntu1.1
 libcrypt11:4.4.27-1
 libcurl47.81.0-1ubuntu1.3
@@ -54,7 +54,7 @@ libffi83.4.2-4
 libgcc-s112-20220319-1ubuntu1
 libgcrypt201.9.4-3ubuntu3
 libgmp102:6.2.1+dfsg-3ubuntu1
-libgnutls303.7.3-4ubuntu1
+libgnutls303.7.3-4ubuntu1.1
 libgpg-error01.43-3
 libgssapi-krb5-21.19.2-2
 libhogweed63.7.3-1build2
@@ -104,8 +104,8 @@ libstdc++612-20220319-1ubuntu1
 libsystemd0249.11-0ubuntu3.4
 libtasn1-64.18.0-4build1
 libtinfo66.3-2
-libtirpc31.3.2-2build1
-libtirpc-common1.3.2-2build1
+libtirpc31.3.2-2ubuntu0.1
+libtirpc-common1.3.2-2ubuntu0.1
 libudev1249.11-0ubuntu3.4
 libunistring21.0-1
 libuuid12.37.2-4ubuntu3
