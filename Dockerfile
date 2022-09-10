@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
+FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy-cd65f39a-ls39
 
 # set version label
 ARG BUILD_DATE
