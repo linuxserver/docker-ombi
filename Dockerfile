@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy-cd65f39a-ls39
+FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
 
 # set version label
 ARG BUILD_DATE
@@ -15,10 +15,11 @@ RUN \
   apt-get update && \
   apt-get install -y \
     jq \
-    libicu70 && \
+    libicu70 \
+    netcat && \
   echo "**** install ombi ****" && \
   mkdir -p \
-    /opt/ombi && \
+    /app/ombi && \
   if [ -z ${OMBI_RELEASE+x} ]; then \
     OMBI_RELEASE=$(curl -sX GET "https://api.github.com/repos/Ombi-app/Ombi/releases" \
     | jq -r 'first(.[] | select(.prerelease == true)) | .tag_name'); \
@@ -27,8 +28,8 @@ RUN \
   /tmp/ombi.tar.gz -L \
   "https://github.com/Ombi-app/Ombi/releases/download/${OMBI_RELEASE}/linux-x64.tar.gz" && \
   tar xzf /tmp/ombi.tar.gz -C \
-    /opt/ombi && \
-  chmod +x /opt/ombi/Ombi && \
+    /app/ombi && \
+  chmod +x /app/ombi/Ombi && \
   echo "**** clean up ****" && \
   rm -rf \
     /tmp/* \
