@@ -55,6 +55,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "11.09.22:", desc: "Migrate to s6v3." }
   - { date: "01.05.22:", desc: "Rebase to Jammy." }
   - { date: "26.04.21:", desc: "Update tarball name, allow for v4 builds in stable." }
   - { date: "18.01.21:", desc: "Update upstream repo. Deprecate `v4-preview` tag, which is merged to `development` tag upstream." }
