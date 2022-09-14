@@ -239,6 +239,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **11.09.22:** - Migrate to s6v3.
 * **01.05.22:** - Rebase to Jammy.
 * **18.01.21:** - Update upstream repo. Deprecate `v4-preview` tag, `develop` is now the tag for v4.
 * **14.04.20:** - Add donation links for Ombi.
