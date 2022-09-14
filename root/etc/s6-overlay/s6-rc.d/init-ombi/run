@@ -2,5 +2,5 @@
 
 # permissions
 chown -R abc:abc \
-    /opt/ombi \
+    /app/ombi \
     /config
