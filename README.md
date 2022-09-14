@@ -237,6 +237,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **11.09.22:** - Migrate to s6v3.
 * **01.05.22:** - Rebase to Jammy.
 * **26.04.21:** - Update tarball name, allow for v4 builds in stable.
 * **18.01.21:** - Update upstream repo. Deprecate `v4-preview` tag, which is merged to `development` tag upstream.
