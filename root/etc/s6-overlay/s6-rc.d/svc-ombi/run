@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+if [[ -n "${BASE_URL}" ]]; then
+    EXTRA_PARAM="--baseurl ${BASE_URL}"
+fi
+
+s6-notifyoncheck -d -n 60 -w 5000 -c "nc -z 127.0.0.1 3579" \
+    cd /app/ombi s6-setuidgid abc /app/ombi/Ombi --storage "/config" --host http://*:3579 ${EXTRA_PARAM}
