@@ -16,7 +16,7 @@ dirmngr2.2.27-3ubuntu2.1
 dpkg1.21.1ubuntu2.1
 e2fsprogs1.46.5-2ubuntu1.1
 findutils4.8.0-1ubuntu3
-gcc-12-base12-20220319-1ubuntu1
+gcc-12-base12.1.0-2ubuntu1~22.04
 gnupg2.2.27-3ubuntu2.1
 gnupg-l10n2.2.27-3ubuntu2.1
 gnupg-utils2.2.27-3ubuntu2.1
@@ -53,7 +53,7 @@ libdb5.35.3.28+dfsg1-0.8ubuntu3
 libdebconfclient00.261ubuntu1
 libext2fs21.46.5-2ubuntu1.1
 libffi83.4.2-4
-libgcc-s112-20220319-1ubuntu1
+libgcc-s112.1.0-2ubuntu1~22.04
 libgcrypt201.9.4-3ubuntu3
 libgmp102:6.2.1+dfsg-3ubuntu1
 libgnutls303.7.3-4ubuntu1.1
@@ -105,7 +105,7 @@ libsqlite3-03.37.2-2
 libss21.46.5-2ubuntu1.1
 libssh-40.9.6-2build1
 libssl33.0.2-0ubuntu1.6
-libstdc++612-20220319-1ubuntu1
+libstdc++612.1.0-2ubuntu1~22.04
 libsystemd0249.11-0ubuntu3.4
 libtasn1-64.18.0-4build1
 libtinfo66.3-2
