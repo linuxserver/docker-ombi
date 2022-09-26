@@ -28,7 +28,7 @@ gpgv2.2.27-3ubuntu2.1
 gpg-wks-client2.2.27-3ubuntu2.1
 gpg-wks-server2.2.27-3ubuntu2.1
 grep3.7-1build1
-gzip1.10-4ubuntu4
+gzip1.10-4ubuntu4.1
 hostname3.23ubuntu2
 init-system-helpers1.62
 jq1.6-2.1ubuntu3
@@ -86,7 +86,7 @@ libpam0g1.4.0-11ubuntu2
 libpam-modules1.4.0-11ubuntu2
 libpam-modules-bin1.4.0-11ubuntu2
 libpam-runtime1.4.0-11ubuntu2
-libpcre2-8-010.39-3build1
+libpcre2-8-010.39-3ubuntu0.1
 libpcre32:8.39-13ubuntu0.22.04.1
 libprocps82:3.3.17-6ubuntu2
 libpsl50.21.0-1.2build2
@@ -106,12 +106,12 @@ libss21.46.5-2ubuntu1.1
 libssh-40.9.6-2build1
 libssl33.0.2-0ubuntu1.6
 libstdc++612.1.0-2ubuntu1~22.04
-libsystemd0249.11-0ubuntu3.4
+libsystemd0249.11-0ubuntu3.6
 libtasn1-64.18.0-4build1
 libtinfo66.3-2
 libtirpc31.3.2-2ubuntu0.1
 libtirpc-common1.3.2-2ubuntu0.1
-libudev1249.11-0ubuntu3.4
+libudev1249.11-0ubuntu3.6
 libunistring21.0-1
 libuuid12.37.2-4ubuntu3
 libxxhash00.8.1-1
