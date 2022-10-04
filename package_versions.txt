@@ -1,6 +1,6 @@
 adduser3.118ubuntu5
-apt2.4.7
-apt-utils2.4.7
+apt2.4.8
+apt-utils2.4.8
 base-files12ubuntu4.2
 base-passwd3.5.52build1
 bash5.1-6ubuntu1
@@ -33,7 +33,7 @@ hostname3.23ubuntu2
 init-system-helpers1.62
 jq1.6-2.1ubuntu3
 libacl12.3.1-1
-libapt-pkg6.02.4.7
+libapt-pkg6.02.4.8
 libassuan02.5.5-1build1
 libattr11:2.5.1-1build1
 libaudit11:3.0.7-1build1
