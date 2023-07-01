@@ -4,67 +4,49 @@
 project_name: ombi
 project_url: "https://ombi.io"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/ombi.png"
-project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) allows you to host your own Plex Request and user management system.
-
-  If you are sharing your Plex server with other users, allow them to request new content using an easy to manage interface! 
-
-  Manage all your requests for Movies and TV with ease, leave notes for the user and get notification when a user requests something. 
-
-  Allow your users to post issues against their requests so you know there is a problem with the audio etc. 
-
-  Even automatically sent them weekly newsletters of new content that has been added to your Plex server!"
+project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) allows you to host your own Plex Request and user management system.\nIf you are sharing your Plex server with other users, allow them to request new content using an easy to manage interface!\nManage all your requests for Movies and TV with ease, leave notes for the user and get notification when a user requests something.\nAllow your users to post issues against their requests so you know there is a problem with the audio etc.\nEven automatically sent them weekly newsletters of new content that has been added to your Plex server!"
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
-
 # supported architectures
 available_architectures:
-  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
-  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
-  - { arch: "{{ arch_armhf }}", tag: "arm32v7-latest"}
-
+  - {arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - {arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
 # development version
 development_versions: true
 development_versions_items:
-  - { tag: "latest", desc: "Stable Ombi releases" }
-  - { tag: "development", desc: "Releases from the `develop` branch of Ombi" }
-
+  - {tag: "latest", desc: "Stable Ombi releases"}
+  - {tag: "development", desc: "Releases from the `develop` branch of Ombi"}
 # container parameters
 common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
-  - { vol_path: "/config", vol_host_path: "/path/to/appdata/config", desc: "Contains all relevant configuration files." }
+  - {vol_path: "/config", vol_host_path: "/path/to/appdata/config", desc: "Contains all relevant configuration files."}
 param_usage_include_ports: true
 param_ports:
-  - { external_port: "3579", internal_port: "3579", port_desc: "web gui" }
+  - {external_port: "3579", internal_port: "3579", port_desc: "web gui"}
 param_usage_include_env: true
 param_env_vars:
-  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
-
+  - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
 # optional parameters
 optional_block_1: true
 optional_block_1_items:
-  - |
-    Using tags, you can choose between various versions of ombi. No tag is required to remain on the latest stable release.  
-    Add one of the tags, if required, to the `linuxserver/ombi` line of the run/create command in the following format, `linuxserver/ombi:development`  
-    The development tag will be the latest commit in the `develop` branch of ombi.  
-    HOWEVER, USE THE DEVELOPMENT BRANCH AT YOUR OWN PERIL !!!!!!!!!
-
+  - "Using tags, you can choose between various versions of ombi. No tag is required to remain on the latest stable release.  \nAdd one of the tags, if required, to the `linuxserver/ombi` line of the run/create command in the following format, `linuxserver/ombi:development`  \nThe development tag will be the latest commit in the `develop` branch of ombi.  \nHOWEVER, USE THE DEVELOPMENT BRANCH AT YOUR OWN PERIL !!!!!!!!!\n"
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
   Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install.  Then configure the required services.
-
 # changelog
 changelogs:
-  - { date: "11.09.22:", desc: "Migrate to s6v3." }
-  - { date: "01.05.22:", desc: "Rebase to Jammy." }
-  - { date: "18.01.21:", desc: "Update upstream repo. Deprecate `v4-preview` tag, `develop` is now the tag for v4." }
-  - { date: "14.04.20:", desc: "Add donation links for Ombi." }
-  - { date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag." }
-  - { date: "25.01.19:", desc: "Add info on tags and development builds." }
-  - { date: "17.12.18:", desc: "Switch to multi-arch builds and add aarch64 image." }
-  - { date: "11.03.18:", desc: "Add HOME env to Dockerfile." }
-  - { date: "05.03.18:", desc: "Switch to Ombi v3 stable based on .net core." }
-  - { date: "26.01.18:", desc: "Fix continuation lines." }
-  - { date: "16.04.17:", desc: "Switch to using inhouse mono baseimage." }
-  - { date: "17.02.17:", desc: "Initial Release." }
+  - {date: "01.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
+  - {date: "11.09.22:", desc: "Migrate to s6v3."}
+  - {date: "01.05.22:", desc: "Rebase to Jammy."}
+  - {date: "18.01.21:", desc: "Update upstream repo. Deprecate `v4-preview` tag, `develop` is now the tag for v4."}
+  - {date: "14.04.20:", desc: "Add donation links for Ombi."}
+  - {date: "23.03.19:", desc: "Switching to new Base images, shift to arm32v7 tag."}
+  - {date: "25.01.19:", desc: "Add info on tags and development builds."}
+  - {date: "17.12.18:", desc: "Switch to multi-arch builds and add aarch64 image."}
+  - {date: "11.03.18:", desc: "Add HOME env to Dockerfile."}
+  - {date: "05.03.18:", desc: "Switch to Ombi v3 stable based on .net core."}
+  - {date: "26.01.18:", desc: "Fix continuation lines."}
+  - {date: "16.04.17:", desc: "Switch to using inhouse mono baseimage."}
+  - {date: "17.02.17:", desc: "Initial Release."}
