@@ -27,7 +27,7 @@ param_ports:
 # optional container parameters
 opt_param_usage_include_env: true
 opt_param_env_vars:
-  - {env_var: "BASE_URL", env_value: "/ombi", desc: "Subfolder can optionally be defined as an env variable for reverse proxies. Keep in mind that once this value is defined, the gui setting for base url no longer works. To use the gui setting, remove this env variable."}
+  - {env_var: "BASE_URL", env_value: "/", desc: "Subfolder can optionally be defined as an env variable for reverse proxies. Keep in mind that once this value is defined, the gui setting for base url no longer works. To use the gui setting, remove this env variable."}
 
 readonly_supported: true
 readonly_message: |
