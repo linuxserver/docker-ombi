@@ -92,7 +92,7 @@ services:
       - TZ=Etc/UTC
       - BASE_URL=/ombi #optional
     volumes:
-      - /path/to/appdata/config:/config
+      - /path/to/ombi/config:/config
     ports:
       - 3579:3579
     restart: unless-stopped
@@ -108,7 +108,7 @@ docker run -d \
   -e TZ=Etc/UTC \
   -e BASE_URL=/ombi `#optional` \
   -p 3579:3579 \
-  -v /path/to/appdata/config:/config \
+  -v /path/to/ombi/config:/config \
   --restart unless-stopped \
   lscr.io/linuxserver/ombi:latest
 ```
@@ -287,6 +287,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **08.07.24:** - Rebase to Ubuntu Noble.
 * **01.07.23:** - Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)
 * **11.09.22:** - Migrate to s6v3.
 * **01.05.22:** - Rebase to Jammy.
