@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
+FROM ghcr.io/linuxserver/baseimage-ubuntu:noble
 
 # set version label
 ARG BUILD_DATE
@@ -8,14 +8,15 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="aptalca"
 
 # environment settings
-ENV HOME="/config"
-ENV DEBIAN_FRONTEND="noninteractive" 
+ENV HOME="/config" \
+  COMPlus_EnableDiagnostics=0 \
+  DEBIAN_FRONTEND="noninteractive" \
+  TMPDIR=/run/ombi-temp
 
 RUN \
   apt-get update && \
   apt-get install -y \
-    libicu70 \
-    netcat && \
+    libicu74 && \
   echo "**** install ombi ****" && \
   mkdir -p \
     /app/ombi && \
@@ -29,6 +30,7 @@ RUN \
   tar xzf /tmp/ombi-src.tar.gz -C \
     /app/ombi/ && \
   chmod +x /app/ombi/Ombi && \
+  printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** clean up ****" && \
   rm -rf \
     /tmp/* \
