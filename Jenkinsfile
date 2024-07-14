@@ -27,7 +27,6 @@ pipeline {
     DEV_DOCKERHUB_IMAGE = 'lsiodev/ombi'
     PR_DOCKERHUB_IMAGE = 'lspipepr/ombi'
     DIST_IMAGE = 'ubuntu'
-    DIST_TAG = 'bionic'
     MULTIARCH='true'
     CI='true'
     CI_WEB='true'
