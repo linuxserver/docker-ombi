@@ -37,7 +37,7 @@ Find us at:
 [![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/ombi.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/r/linuxserver/ombi)
 [![Docker Stars](https://img.shields.io/docker/stars/linuxserver/ombi.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=stars&logo=docker)](https://hub.docker.com/r/linuxserver/ombi)
 [![Jenkins Build](https://img.shields.io/jenkins/build?labelColor=555555&logoColor=ffffff&style=for-the-badge&jobUrl=https%3A%2F%2Fci.linuxserver.io%2Fjob%2FDocker-Pipeline-Builders%2Fjob%2Fdocker-ombi%2Fjob%2Fdevelopment%2F&logo=jenkins)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-ombi/job/development/)
-[![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fombi%2Flatest%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/ombi/latest/index.html)
+[![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fombi%2Fdevelopment%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/ombi/development/index.html)
 
 [Ombi](https://ombi.io) allows you to host your own Plex Request and user management system.
 If you are sharing your Plex server with other users, allow them to request new content using an easy to manage interface!
@@ -79,8 +79,8 @@ Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install
 This image can be run with a read-only container filesystem. For details please [read the docs](https://docs.linuxserver.io/misc/read-only/).
 
 ### Caveats
-* `BASE_URL` cannot be changed from `/`
 
+* `BASE_URL` cannot be changed from `/`
 
 ## Usage
 
@@ -271,7 +271,8 @@ Below are the instructions for updating containers:
 
 ### Image Update Notifications - Diun (Docker Image Update Notifier)
 
-**tip**: We recommend [Diun](https://crazymax.dev/diun/) for update notifications. Other tools that automatically update containers unattended are not recommended or supported.
+>[!TIP]
+>We recommend [Diun](https://crazymax.dev/diun/) for update notifications. Other tools that automatically update containers unattended are not recommended or supported.
 
 ## Building locally
 
