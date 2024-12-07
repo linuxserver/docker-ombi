@@ -28,15 +28,52 @@ param_ports:
 opt_param_usage_include_env: true
 opt_param_env_vars:
   - {env_var: "BASE_URL", env_value: "/", desc: "Subfolder can optionally be defined as an env variable for reverse proxies. Keep in mind that once this value is defined, the gui setting for base url no longer works. To use the gui setting, remove this env variable."}
-
 readonly_supported: true
 readonly_message: |
   * `BASE_URL` cannot be changed from `/`
-
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
   Access the webui at `<your-ip>:3579`. Follow the setup wizard on initial install.  Then configure the required services.
+# init diagram
+init_diagram: |
+  "ombi:latest": {
+    docker-mods
+    base {
+      fix-attr +\nlegacy cont-init
+    }
+    docker-mods -> base
+    legacy-services
+    custom services
+    init-services -> legacy-services
+    init-services -> custom services
+    custom services -> legacy-services
+    legacy-services -> ci-service-check
+    init-migrations -> init-adduser
+    init-os-end -> init-config
+    init-config -> init-config-end
+    init-crontab-config -> init-config-end
+    init-ombi-config -> init-config-end
+    init-config -> init-crontab-config
+    init-mods-end -> init-custom-files
+    base -> init-envfile
+    base -> init-migrations
+    init-config-end -> init-mods
+    init-mods-package-install -> init-mods-end
+    init-mods -> init-mods-package-install
+    init-config -> init-ombi-config
+    init-adduser -> init-os-end
+    init-envfile -> init-os-end
+    init-custom-files -> init-services
+    init-services -> svc-cron
+    svc-cron -> legacy-services
+    init-services -> svc-ombi
+    svc-ombi -> legacy-services
+  }
+  Base Images: {
+    "baseimage-ubuntu:noble"
+  }
+  "ombi:latest" <- Base Images
 # changelog
 changelogs:
   - {date: "08.07.24:", desc: "Rebase to Ubuntu Noble."}
