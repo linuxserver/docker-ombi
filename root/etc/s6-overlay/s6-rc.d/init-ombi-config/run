@@ -8,4 +8,6 @@ lsiown -R abc:abc \
     /run/ombi-temp \
     /config
 
-lsiown abc:abc /app/ombi/ClientApp/dist/index.html > /dev/null 2>&1
+if [[ -z ${LSIO_READ_ONLY_FS} ]]; then
+    lsiown abc:abc /app/ombi/ClientApp/dist/browser/index.html
+fi
