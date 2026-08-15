@@ -22,7 +22,7 @@ RUN \
     /app/ombi && \
   if [ -z ${OMBI_RELEASE+x} ]; then \
     OMBI_RELEASE=$(curl -sX GET "https://api.github.com/repos/Ombi-app/Ombi/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+    | jq -r '.tag_name'); \
   fi && \
   curl -o \
   /tmp/ombi-src.tar.gz -L \
